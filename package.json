@@ -1,0 +1,15 @@
+{
+  "name": "mokepon2",
+  "version": "1.0.0",
+  "description": "- El juego consiste en que el jugador elige su mascota y el sistema elige la suya de forma aleatoria. \r - Cada mascota tiene ataques distintos, que pueden ser Agua, Tierra y Fuego.\r - Cada jugador tiene 5 ataques.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kapri27",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
+}

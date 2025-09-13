@@ -1,0 +1,277 @@
+*{
+    padding: 0;
+    margin:0;
+    /*font-family: Verdana, Geneva, Tahoma, sans-serif;*/
+}
+:root {
+    --primary-color : #8589e5;
+    --secondary-color: #f89ccc;
+    --tertiary-color: #f4a38f;
+    --quaternary-color: #f5d696;
+    --quinary-color: #dcefc5;
+    --sexenary-color: white;
+    --septenary-color: lightgreen;
+    --octonary-color: #ffa07a;
+    --nonary-color: #F9CB43;
+}
+
+
+body{
+  font-family: "Girassol", cursive;
+  font-weight: 600;
+  font-style: normal;
+  background-color: #4448cc;
+}
+
+.titulo_juego{
+    font-family: "Girassol", cursive;
+    font-weight: 400;
+    font-size: 5rem;
+    color: #F9CB43;
+    padding: 10px;
+    text-align: center;
+}
+
+.subtitulo{
+    color: #ffffff;
+    font-family: "Girassol", cursive;
+    font-weight: 300;
+    font-size: 3rem;
+}
+
+
+/*
+////ESTA INSTRUCCIÓN CENTRA EN HORIZONTAL Y VERTICAL EL CONTENIDO
+*/
+
+#seleccionar_mascota{
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    height: 100vh;
+    align-items: center;
+}
+
+.tarjetas{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap:20px; 
+}
+
+.card_mascota{
+    width: 200px;
+    height: auto;
+    background-color: lightgreen;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.card_mascota img{
+    display: flex;
+    justify-content: center;
+}
+
+input{
+    display: none;
+}
+
+input:checked + label {
+    width: 260px;
+    background-color: #c7a93b;
+}
+
+#boton_mascota{
+    width: 130px;
+    height: 50px;
+    font-family: "Girassol", cursive;
+    font-size: 22px;
+    font-weight: 300;
+    background-color: transparent;
+    color: #F9CB43;
+    border: 2px solid #F9CB43;
+    border-radius: 35px;
+    margin: 30px;
+}
+
+#boton_mascota:hover{
+    background-color: #f7f332;
+    color: #4448cc;
+}
+
+/*
+/// SECCIÓN MAPA 
+*/
+
+#ver_mapa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn_ico{
+    background-color: transparent;
+    border: none;
+}
+.btn_direccion{
+    width: 80px;
+}
+
+svg{
+    width: 80px;
+    height: auto;
+    margin: 20px;
+}
+
+/*
+//// VENTANA : ATAQUES, VIDAS, BATALLA, REINICIAR
+*/
+
+#seleccionar_ataque{
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-size: large;
+    font-weight: 100;
+
+}
+
+.btn-ataque{
+    width: 130px;
+    height: 50px;
+    font-family: "Girassol", cursive;
+    font-size: large;
+    font-weight: 400;
+    color: #f4f3fa;
+    background-color: #090e9b;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 35px;
+    margin: 30px;
+}
+
+#boton_fuego:hover {
+    background-color: rgb(250, 175, 13);
+    color:#df2007;
+}
+
+#boton_agua:hover {
+    background-color: rgb(118, 182, 235);
+    color:#1741b4;
+}
+
+#boton_tierra:hover {
+    background-color: rgb(75, 167, 52);
+    color:#6b3a14;
+}
+
+
+ #seccion_mensajes{
+    color: #94076a;
+    background-color: #9699f1;
+    padding:20px;
+    border-radius: 20px;
+    margin: 15px;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    grid-template-columns: 150px 150px;
+   text-align: center;
+} 
+
+#jugador {
+    background-color: #d4d0d0;
+    color:#ec783d;
+    width: 40%;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 20px;
+    font-weight: 100;
+    
+}
+
+#enemigo{
+    background-color: #afc5f7;
+    color: #040261;
+    width: 40%;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 20px;
+    font-weight: 100;
+}
+
+#resultado_combate{
+    background-color: #000000;
+    color: white;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 20px;
+    font-family: "Girasol";
+    font-size: medium;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    /* text-align: center; */
+}
+    
+
+#seccion_mensaje_final{
+    color: #5634eb;
+    background-color: #f4a38f;
+    margin-top: 10px;
+    padding:15px;
+    border-radius: 25px;
+    font-size: large;
+    font-weight: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#seccion_reiniciar{
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+#boton_reiniciar{
+    margin-top: 10px;
+    width: 150px;
+    height: 40px;
+    color: #f4f3fa;
+    background-color: #090e9b;
+    border-radius: 25px;
+    font-family: "Girassol", cursive;
+    font-size: larger;
+    font-weight: 300;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#boton_reiniciar:hover{
+    color:#090e9b;
+    background-color: #F9CB43;
+    font-family: "Girassol", cursive;
+    font-size: larger;
+    font-weight: 300;
+}
+
+
+/*
+////MEDIA_QUERIES////
+*/
+
+
+@media (max-width: 790px)
+{
+    .tarjetas{
+        flex-direction: column;  
+    }
+}

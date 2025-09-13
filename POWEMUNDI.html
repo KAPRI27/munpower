@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./assets/css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Estonia&family=Federant&family=Girassol&family=Redressed&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+        <title>MOKEPON</title>
+        
+    </head>
+    <body>
+        
+        <!--SECCIÓN SELECCIONAR MASCOTA-->
+        <section id="seleccionar_mascota">
+            <h1 class="titulo_juego">MUNPOWER 🌱💧🔥</h1>
+            <h2 class="subtitulo">Elige tu personaje</h2>
+            <div id="contenedor_Tarjetas" class="tarjetas">
+                <!-- AQUÍ SE RENDERIZARÁN LOS MOKEPONES LLAMADOS POR EL forEach -->
+                
+            </div>
+            <button id="boton_mascota">Seleccionar</button>
+        </section>   
+
+
+        <section id="ver_mapa">    
+            <h1 class="titulo_juego">Recorre el mapa con tu Mokepon</h1>
+            
+            <div>
+                <button id="moverArriba" class="btn_ico" onmouseup="detenerMovimiento()" onmousedown="moverArriba()" ><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6 8L2 8L2 6L8 5.24536e-07L14 6L14 8L10 8L10 16L6 16L6 8Z" fill="#1eff00"></path> </g></svg></button>
+                <button id="moverIzquierda" class="btn_ico" onmouseup="detenerMovimiento()" onmousedown="moverIzquierda()" ><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(270)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6 8L2 8L2 6L8 5.24536e-07L14 6L14 8L10 8L10 16L6 16L6 8Z" fill="#f89ccc"></path> </g></svg> </button>
+                <button id="moverDerecha" class="btn_ico" onmouseup="detenerMovimiento()" onmousedown="moverDerecha()" ><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(90)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6 8L2 8L2 6L8 5.24536e-07L14 6L14 8L10 8L10 16L6 16L6 8Z" fill="#7fffd4"></path> </g></svg></button>
+                <button id="moverAbajo" class="btn_ico" onmouseup="detenerMovimiento()" onmousedown="moverAbajo()" ><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(180)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6 8L2 8L2 6L8 5.24536e-07L14 6L14 8L10 8L10 16L6 16L6 8Z" fill="#ff9956"></path> </g></svg></button>            
+            </div>
+
+            <canvas id="mapa"></canvas>
+        </section>
+
+
+        <!--SECCIÓN SELECCIONAR ATAQUE-->
+        <section id="seleccionar_ataque">
+            <h1 class="titulo_juego">Mokepón 2 🌱💧🔥</h1>
+            <h2 class="subtitulo">CONTRINCANTES</h2>
+            <!--SELECCIONA TU ATAQUE-->
+            <h2 class="subtitulo">INICIA LA BATALLA. SELECCIONA TU ATAQUE:</h2>
+            <div id="contenedor_Ataques" >
+                <!--BOTONES DE ATAQUE-->
+                <!-- <p id="botones_ataque" class="btn-ataque BAtaque"> -->
+                
+            </div>
+                       
+            <!--SECCIÓN MENSAJE FINAL-->
+            <section id="seccion_mensaje_final" >
+                <!-- ultimo mensaje despues de los 5 ataques -->
+            </section>
+            
+            <!--BOTÓN REINICIAR-->
+            <section id="seccion_reiniciar">
+                <button id="boton_reiniciar">Reiniciar</button>
+            </section>
+            <!-- SECCIÓN MENSAJES -->
+            <section id="seccion_mensajes">
+                <!--SECCIÓN MENSAJES DE COMBATE-->
+                <div id="jugador">
+                    <h3 id="total_vidas_jugador">0</h3>
+                    <h3 id="mascota_jugador"></h3>
+                    <h4 id="ataque_jugador"></h4>
+                </div>
+                <!-- <div>               
+                    <p id="seccion_mensajes">resultado combate</p>
+                </div>                            -->
+                <div id="enemigo">
+                    <h3 id="total_vidas_enemigo">0</h3>    
+                    <h3 id="mascota_enemigo"></h3>
+                    <h4 id="ataque_enemigo"></h4>         
+                </div>
+            </section>
+                
+        </section>
+       
+        <!-- 
+            <script src="./assets/js/todo_ok.js"></script>
+            -->
+            <script src="./assets/js/munpower.js"></script>
+        
+    </body>
+    </html>
