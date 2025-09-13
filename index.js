@@ -18,9 +18,9 @@ class Jugador {
     this.id = id
   }
 
-  //asignar mokepon
-  asignarMokepon(mokepon) {
-    this.mokepon = mokepon
+  //asignar mpersonaje
+  asignarPersonaje(personaje) {
+    this.personaje = personaje
   }
 
   actualizarPosicion(x, y) {
@@ -34,7 +34,7 @@ class Jugador {
 }
 
 //CLASE CONSTRUCTORA MOKEPON
-class Mokepon {
+class Personaje {
   constructor(nombre) {
     this.nombre = nombre
   }
@@ -59,30 +59,30 @@ app.get("/unirse", (req, res) => {
 })
 
 //URL ID JUGADOR
-app.post("/mokepon/:jugadorId", (req, res) => {
+app.post("/munpower/:jugadorId", (req, res) => {
   const jugadorId = req.params.jugadorId || ""
-  const nombre = req.body.mokepon || ""
-  const mokepon = new Mokepon(nombre)
+  const nombre = req.body.personaje || ""
+  const personaje = new Personaje(nombre)
 
   //buscar al jugador con ese id, primero validamos que exista con findIndex, si existe nos regresa el nro de lista
   const jugadorIndex = jugadores.findIndex((jugador) => jugadorId === jugador.id)
 
   //ahora verificamos si el index es mayor que cero
-  if (jugadorIndex >= 0) {jugadores[jugadorIndex].asignarMokepon(mokepon)}
+  if (jugadorIndex >= 0) {jugadores[jugadorIndex].asignarPersonaje(personaje)}
 
   //MOSTRAMOS JUGADORES
   console.log(jugadores)
   //MOSTRAMOS EL ID
   console.log(jugadorId)
   //MOSTRAMOS LA MASCOTA ELEGIDA
-  // console.log(mokepon)
+  // console.log(personaje)
 
   //TERMINAMOS LA PETICIÓN
   res.end()
 })
 
 //ENVIAR POSICION DE MOKEPONY
-app.post("/mokepon/:jugadorId/posicion", (req, res) => {
+app.post("/munpower/:jugadorId/posicion", (req, res) => {
   const jugadorId = req.params.jugadorId || ""
   const x = req.body.x || 0
   const y = req.body.y || 0
@@ -99,7 +99,7 @@ app.post("/mokepon/:jugadorId/posicion", (req, res) => {
   })
 })
 
-app.post("/mokepon/:jugadorId/ataques", (req, res) =>{
+app.post("/munpower/:jugadorId/ataques", (req, res) =>{
   const jugadorId = req.params.jugadorId || ""
   const ataques = req.body.ataques || []
 
@@ -111,7 +111,7 @@ app.post("/mokepon/:jugadorId/ataques", (req, res) =>{
   res.end()
 })
 
-app.get("/mokepon/:jugadorId/ataques", (req, res) =>{
+app.get("/munpower/:jugadorId/ataques", (req, res) =>{
   const jugadorId = req.params.jugadorId || ""
   const jugador = jugadores.find((jugador) => jugador.id === jugadorId)
 

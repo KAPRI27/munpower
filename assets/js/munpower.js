@@ -41,16 +41,16 @@ const mapa = document.getElementById("mapa")
 
 let jugadorId = null
 let enemigoId = null
-let mokepones = []
-let mokeponesEnemigos = []
-// let mokeponEnemigo = null
+let personajes = []
+let personajesEnemigos = []
+// let personajeEnemigo = null
 let opcionDeMokepones
 let inputShakira
 let inputPique
-let inputRatigüeya
-let inputLangostarol
-let inputAguirrope
-let inputPandarol
+let inputClara
+let inputCazzu
+let inputNodal
+let inputAngela
 let ataquesMokepon
 let ataquesMokeponEnemigo
 let botonFuego
@@ -85,7 +85,7 @@ mapa.width = anchoDelMapa
 mapa.height = alturaQueBuscamos
 
 // CLASE CONSTRUCTOR MOKEPON
-class Mokepon {
+class Personaje {
   constructor(nombre, foto, vidas, fotoMapa, id = null) {
     this.id = id
     this.nombre = nombre
@@ -102,7 +102,7 @@ class Mokepon {
     this.velocidadY = 0
   }
 
-  pintarMokepon() {
+  pintarPersonaje() {
     lienzo.drawImage(
       this.mapaFoto,
       this.x, //posicion X
@@ -114,12 +114,12 @@ class Mokepon {
 }
 
 // OBJETOS MOKEPONES JUGADOR
-let shakira = new Mokepon("Shakira", "./assets/img/shakira.png", 5, "./assets/img/shakira.png")
-let pique = new Mokepon("Pique", "./assets/img/pique.png", 5, "./assets/img/pique.png")
-let ratigüeya = new Mokepon("Ratigüeya", "./assets/img/ratigüeya.png", 5, "./assets/img/ratigüeya.png")
-let langostarol = new Mokepon("Langostarol", "./assets/img/langostarol.png", 5, "./assets/img/langostarol.png")
-let aguirrope = new Mokepon("Aguirrope", "./assets/img/aguirrope.png", 5, "./assets/img/aguirrope.png")
-let pandarol = new Mokepon("Pandarol", "./assets/img/pandarol.png", 5, "./assets/img/pandarol.png")
+let shakira = new Personaje("Shakira", "./assets/img/shakira.png", 5, "./assets/img/shakira.png")
+let pique = new Personaje("Pique", "./assets/img/pique.png", 5, "./assets/img/pique.png")
+let clara = new Personaje("Clara", "./assets/img/clara.png", 5, "./assets/img/clara.png")
+let cazzu = new Personaje("Cazzu", "./assets/img/cazzu.png", 5, "./assets/img/cazzu.png")
+let nodal = new Personaje("Nodal", "./assets/img/nodal.png", 5, "./assets/img/nodal.png")
+let angela = new Personaje("Angela", "./assets/img/angela.png", 5, "./assets/img/angela.png")
 
 // ATAQUES JUGADORES
 
@@ -135,14 +135,14 @@ const piqueAtaques = [{ nombre: "TIERRA 🌱", id: "boton_tierra" },
   { nombre: "AGUA 💧", id: "boton_agua" },
   { nombre: "TIERRA 🌱", id: "boton_tierra" }]
 
-const ratigüeyaAtaques = [{ nombre: "FUEGO 🔥", id: "boton_fuego" },
+const claraAtaques = [{ nombre: "FUEGO 🔥", id: "boton_fuego" },
   { nombre: "AGUA 💧", id: "boton_agua" },
   { nombre: "FUEGO 🔥", id: "boton_fuego" },
   { nombre: "TIERRA 🌱", id: "boton_tierra" },
   { nombre: "FUEGO 🔥", id: "boton_fuego" }
 ]
 
-const langostarolAtaques = [
+const cazzuAtaques = [
   { nombre: "FUEGO 🔥", id: "boton_fuego"},
   { nombre: "FUEGO 🔥", id: "boton_fuego"},
   { nombre: "FUEGO 🔥", id: "boton_fuego"},
@@ -150,7 +150,7 @@ const langostarolAtaques = [
   { nombre: "TIERRA 🌱", id: "boton_tierra"}
 ]
 
-const aguirropeAtaques = [
+const nodalAtaques = [
   { nombre: "AGUA 💧", id: "boton_agua"},
   { nombre: "TIERRA 🌱", id: "boton_tierra"},
   { nombre: "FUEGO 🔥", id: "boton_fuego"},
@@ -158,7 +158,7 @@ const aguirropeAtaques = [
   { nombre: "TIERRA 🌱", id: "boton_tierra"}
 ]
 
-  const pandarolAtaques = [
+  const angelaAtaques = [
     { nombre: "FUEGO 🔥", id: "boton_fuego"},
   { nombre: "TIERRA 🌱", id: "boton_tierra"},
   { nombre: "AGUA 💧", id: "boton_agua"},
@@ -168,19 +168,19 @@ const aguirropeAtaques = [
 
 shakira.ataques.push(...shakiraAtaques)
 pique.ataques.push(...piqueAtaques)
-ratigüeya.ataques.push(...ratigüeyaAtaques)
-langostarol.ataques.push(...langostarolAtaques)
-aguirrope.ataques.push(...aguirropeAtaques)
-pandarol.ataques.push(...pandarolAtaques)
+clara.ataques.push(...claraAtaques)
+cazzu.ataques.push(...cazzuAtaques)
+nodal.ataques.push(...nodalAtaques)
+angela.ataques.push(...angelaAtaques)
 
 // METEMOS LOS OBJETOS MOKEPON EN EL ARRAY MOKEPONES
-mokepones.push(
+personajes.push(
   shakira,
   pique,
-  ratigüeya,
-  langostarol,
-  aguirrope,
-  pandarol
+  clara,
+  cazzu,
+  nodal,
+  angela
 )
 
 //FUNCIÓN iniciarJuego  -  PARA INICIAR EL JUEGO
@@ -197,22 +197,22 @@ function iniciarJuego() {
   botonReiniciarJuego.style.display = "none"
 
   //SE CREA EL EVENTO 'CLICK' PARA SELECCIONAR MASCOTA
-  mokepones.forEach((mokepon) => {
+  personajes.forEach((personaje) => {
     opcionDeMokepones = `
-        <input type="radio" name="mascota" id="${mokepon.nombre}"/>
-        <label  class="card_mascota" for="${mokepon.nombre}">
-        <img src="${mokepon.foto}" alt="${mokepon.nombre}" >
-        <h4>${mokepon.nombre}</h4>
+        <input type="radio" name="mascota" id="${personaje.nombre}"/>
+        <label  class="card_mascota" for="${personaje.nombre}">
+        <img src="${personaje.foto}" alt="${personaje.nombre}" >
+        <h4>${personaje.nombre}</h4>
         </label>
         `
     contenedorTarjetas.innerHTML += opcionDeMokepones
 
-    inputShakira = document.getElementById("shakira")
+    inputShakira = document.getElementById("Shakira")
     inputPique = document.getElementById("Pique")
-    inputRatigüeya = document.getElementById("Ratigüeya")
-    inputLangostarol = document.getElementById("Langostarol")
-    inputAguirrope = document.getElementById("Aguirrope")
-    inputPandarol = document.getElementById("Pandarol")
+    inputClara = document.getElementById("Clara")
+    inputCazzu = document.getElementById("Cazzu")
+    inputNodal = document.getElementById("Nodal")
+    inputAngela = document.getElementById("Angela")
   })
   botonMascotaJugador.addEventListener("click", seleccionarMascotaJugador)
   botonReiniciar.addEventListener("click", reiniciarJuego)
@@ -239,24 +239,24 @@ function unirseAlJuego() {
 function seleccionarMascotaJugador() {
  
   //TEXTO DE LA MASCOTA QUE ELEGISTE
-  if (inputshakira.checked) {
-      spanMascotaJugador.innerHTML = inputshakira.id
-      mascotaJugador = inputshakira.id
+  if (inputShakira.checked) {
+      spanMascotaJugador.innerHTML = inputShakira.id
+      mascotaJugador = inputShakira.id
     } else if (inputPique.checked) {
       spanMascotaJugador.innerHTML = inputPique.id
       mascotaJugador = inputPique.id
-    } else if (inputRatigüeya.checked) {
-      spanMascotaJugador.innerHTML = inputRatigüeya.id
-      mascotaJugador = inputRatigüeya.id
-    } else if (inputLangostarol.checked) {
-      spanMascotaJugador.innerHTML = inputLangostarol.id
-      mascotaJugador = inputLangostarol.id
-    } else if (inputAguirrope.checked) {
-      spanMascotaJugador.innerHTML = inputAguirrope.id
-      mascotaJugador = inputAguirrope.id
-    } else if (inputPandarol.checked) {
-      spanMascotaJugador.innerHTML = inputPandarol.id
-      mascotaJugador = inputPandarol.id
+    } else if (inputClara.checked) {
+      spanMascotaJugador.innerHTML = inputClara.id
+      mascotaJugador = inputClara.id
+    } else if (inputCazzu.checked) {
+      spanMascotaJugador.innerHTML = inputCazzu.id
+      mascotaJugador = inputCazzu.id
+    } else if (inputNodal.checked) {
+      spanMascotaJugador.innerHTML = inputNodal.id
+      mascotaJugador = inputNodal.id
+    } else if (inputAngela.checked) {
+      spanMascotaJugador.innerHTML = inputAngela.id
+      mascotaJugador = inputAngela.id
     } else {
       alert("SELECCIONA UNA MASCOTA")
       return
@@ -266,20 +266,20 @@ function seleccionarMascotaJugador() {
   //MOSTRAR SECCION MAPA
   seccionVerMapa.style.display = "flex"
 
-  seleccionarMokepon(mascotaJugador)
+  seleccionarPersonaje(mascotaJugador)
   extraerAtaques(mascotaJugador)
   iniciarMapa()
 }
 
 //FUNCION FETCH seleccionarMokepon - ESTA FUNCIÓN ENVÍA EL MOKEPON SELECCIONADO AL BACKEND
-function seleccionarMokepon(mascotaJugador) {
-  fetch(`http://localhost:8080/mokepon/${jugadorId}`, {
+function seleccionarPersonaje(mascotaJugador) {
+  fetch(`http://localhost:8080/munpower/${jugadorId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      mokepon: mascotaJugador
+      personaje: mascotaJugador
     })
   })
 }
@@ -287,9 +287,9 @@ function seleccionarMokepon(mascotaJugador) {
 //FUNCION EXTRAER ATAQUES
 function extraerAtaques(mascotaJugador) {
   let ataques
-  for (let i = 0; i < mokepones.length; i++) {
-    if (mascotaJugador === mokepones[i].nombre) {
-      ataques = mokepones[i].ataques
+  for (let i = 0; i < personajes.length; i++) {
+    if (mascotaJugador === personajes[i].nombre) {
+      ataques = personajes[i].ataques
     }
   }
   mostrarAtaques(ataques)
@@ -340,7 +340,7 @@ function secuenciaAtaque() {
 
 //FUNCION PARA ENVIAR EL ATAQUE A BACKEND
 function enviarAtaques(){
-  fetch(`http://localhost:8080/mokepon/${jugadorId}/ataques`,{
+  fetch(`http://localhost:8080/munpower/${jugadorId}/ataques`,{
     method: "POST",
     headers: {
       "Content-Type" : "application/json"
@@ -353,7 +353,7 @@ function enviarAtaques(){
 }
 
 function obtenerAtaques (){
-  fetch(`http://localhost:8080/mokepon/${enemigoId}/ataques`)
+  fetch(`http://localhost:8080/munpower/${enemigoId}/ataques`)
     .then(function (res){
       if(res.ok){
         res.json()
@@ -504,15 +504,15 @@ function pintarCanvas() {
   mascotaJugadorObjeto.pintarMokepon()
   enviarPosicion(mascotaJugadorObjeto.x, mascotaJugadorObjeto.y)
 
-  mokeponesEnemigos.forEach(function (mokepon){
-    mokepon.pintarMokepon()
-    revisarColision(mokepon)
+  personajesEnemigos.forEach(function (personaje){
+    personaje.pintarMokepon()
+    revisarColision(personaje)
   })
 }
 
 //ENVIAR POSICION JUGADOR agregamos una funcion que permite leer las coordenadas del jugador
 function enviarPosicion(x, y) {
-  fetch(`http://localhost:8080/mokepon/${jugadorId}/posicion`, {
+  fetch(`http://localhost:8080/munpower/${jugadorId}/posicion`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -529,28 +529,28 @@ function enviarPosicion(x, y) {
       //devuelve un objeto json a Back con los enemigos
       .then(function ({enemigos}){
         console.log(enemigos)  
-        mokeponesEnemigos = enemigos.map(function (enemigo) {
-            let mokeponEnemigo = null
-            const mokeponNombre = enemigo.mokepon.nombre || ""
+        personajesEnemigos = enemigos.map(function (enemigo) {
+            let personajeEnemigo = null
+            const personajeNombre = enemigo.personaje.nombre || ""
             
-              if (mokeponNombre === "shakira"){
-              mokeponEnemigo = new Mokepon("Shakira", "./assets/img/shakira.png", 5, "./assets/img/shakira.png", enemigo.id)
-              } else if (mokeponNombre === "Pique"){
-                mokeponEnemigo = new Mokepon("Pique", "./assets/img/pique.png", 5, "./assets/img/pique.png", enemigo.id)
-              } else if (mokeponNombre === "Ratigüeya"){
-                mokeponEnemigo = new Mokepon("Ratigüeya", "./assets/img/ratigüeya.png", 5, "./assets/img/ratigüeya.png", enemigo.id)
-              } else if (mokeponNombre === "Langostarol"){
-                mokeponEnemigo = new Mokepon("Langostarol", "./assets/img/langostarol.png", 5, "./assets/img/langostarol.png", enemigo.id)
-              } else if (mokeponNombre === "Aguirrope"){
-                mokeponEnemigo = new Mokepon("Aguirrope", "./assets/img/aguirrope.png", 5, "./assets/img/aguirrope.png", enemigo.id)
+              if (personajeNombre === "shakira"){
+              personajeEnemigo = new Mokepon("Shakira", "./assets/img/shakira.png", 5, "./assets/img/shakira.png", enemigo.id)
+              } else if (personajeNombre === "Pique"){
+                personajeEnemigo = new Mokepon("Pique", "./assets/img/pique.png", 5, "./assets/img/pique.png", enemigo.id)
+              } else if (personajeNombre === "Clara"){
+                personajeEnemigo = new Mokepon("Clara", "./assets/img/clara.png", 5, "./assets/img/clara.png", enemigo.id)
+              } else if (personajeNombre === "Cazzu"){
+                personajeEnemigo = new Mokepon("Cazzu", "./assets/img/cazzu.png", 5, "./assets/img/cazzu.png", enemigo.id)
+              } else if (personajeNombre === "Nodal"){
+                personajeEnemigo = new Mokepon("Nodal", "./assets/img/nodal.png", 5, "./assets/img/nodal.png", enemigo.id)
               } else {
-                mokeponEnemigo = new Mokepon("Pandarol", "./assets/img/pandarol.png", 5, "./assets/img/pandarol.png", enemigo.id)
+                personajeEnemigo = new Mokepon("Angela", "./assets/img/angela.png", 5, "./assets/img/angela.png", enemigo.id)
             }     
             //lee las coordenadas del enemigo
-            mokeponEnemigo.x = enemigo.x
-            mokeponEnemigo.y = enemigo.y
+            personajeEnemigo.x = enemigo.x
+            personajeEnemigo.y = enemigo.y
 
-            return mokeponEnemigo
+            return personajeEnemigo
         })    
       })  
     }          
@@ -610,9 +610,9 @@ function iniciarMapa() {
 }
 
 function obtenerObjetoMascota() {
-  for (let i = 0; i < mokepones.length; i++) {
-    if (mascotaJugador === mokepones[i].nombre) {
-      return mokepones[i]
+  for (let i = 0; i < personajes.length; i++) {
+    if (mascotaJugador === personajes[i].nombre) {
+      return personajes[i]
     }
   }
 }
