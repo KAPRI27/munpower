@@ -6,7 +6,7 @@ const botonPersonajeJugador = document.getElementById("boton_seleccionar")
 const botonReiniciar = document.getElementById("boton_reiniciar")
 
 ///** FUNCION SELECCIONARMASCOTAJUGADOR */
-const seccionSeleccionarPersonaje = document.getElementById(  "seleccionar_personaje")
+const seccionSeleccionarPersonaje = document.getElementById("seleccionar_personaje")
 const seccionSeleccionarAtaque = document.getElementById("seleccionar_ataque")
 let spanPersonajeJugador = document.getElementById("personaje_jugador")
 let spanPersonajeEnemigo = document.getElementById("personaje_enemigo")
@@ -70,16 +70,16 @@ let vidasEnemigo = 3
 let intervalo
 let lienzo = mapa.getContext("2d")
 let mapaBackground = new Image()
-mapaBackground.src = "./assets/img/mapamundi.jpg"
+mapaBackground.src = "./assets/img/mapamundi3.png"
 let alturaQueBuscamos
 let anchoDelMapa = window.innerWidth - 20
-const anchoMaximoDelMapa = 650
+const anchoMaximoDelMapa = 1000
 
 if (anchoDelMapa > anchoMaximoDelMapa) {
   anchoDelMapa = anchoMaximoDelMapa - 20
 }
 
-alturaQueBuscamos = (anchoDelMapa * 600) / 800
+alturaQueBuscamos = (anchoDelMapa * 800) / 1500
 
 mapa.width = anchoDelMapa
 mapa.height = alturaQueBuscamos
@@ -242,7 +242,7 @@ function unirseAlJuego() {
 //AL FINALIZAR LLAMA FUNCION - FETCH seleccionarPersonaje
 function seleccionarPersonajeJugador() {
  
-  //TEXTO DE LA MASCOTA QUE ELEGISTE
+  //NOMBRE DEL PERSONAJE QUE ELEGISTE
   if (inputUsa.checked) {
       spanPersonajeJugador.innerHTML = inputUsa.id
       personajeJugador = inputUsa.id
@@ -265,7 +265,7 @@ function seleccionarPersonajeJugador() {
       alert("SELECCIONA UN PERSONAJE")
       return
   }
-   //ESCONDER SECCIÓN "PERSONAJES"  MIENTRAS NO SE ELIJA UNO
+  //ESCONDER SECCIÓN "PERSONAJES"  MIENTRAS NO SE ELIJA UNO
   seccionSeleccionarPersonaje.style.display = "none"
   //MOSTRAR SECCION MAPA
   seccionVerMapa.style.display = "flex"
@@ -372,7 +372,7 @@ function obtenerAtaques (){
     })
 }
 
-//MASCOTA DEL ENEMIGO (ALEATORIO)
+//PERSONAJE DEL ENEMIGO (ALEATORIO)
 function seleccionarPersonajeEnemigo(enemigo) {
   spanPersonajeEnemigo.innerHTML = enemigo.nombre
   ataquesPersonajeEnemigo = enemigo.ataques
