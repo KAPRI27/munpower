@@ -45,17 +45,17 @@ let personajes = []
 let personajesEnemigos = []
 // let personajeEnemigo = null
 let opcionDePersonajes
-let inputShakira
-let inputPique
-let inputClara
-let inputCazzu
-let inputNodal
-let inputAngela
+let inputUsa
+let inputRusia
+let inputChina
+let inputNorcorea
+let inputVenezuela
+let inputSalvador
 let ataquesPersonaje
 let ataquesPersonajeEnemigo
-let botonFuego
-let botonAgua
-let botonTierra
+let botonBomba
+let botonVirus
+let botonMisil
 let botones = []
 let personajeJugador
 let personajeJugadorObjeto
@@ -113,74 +113,78 @@ class Personaje {
   }
 }
 
-// OBJETOS MOKEPONES JUGADOR
-let shakira = new Personaje("Shakira", "./assets/img/shakira.png", 5, "./assets/img/shakira.png")
-let pique = new Personaje("Pique", "./assets/img/pique.png", 5, "./assets/img/pique.png")
-let clara = new Personaje("Clara", "./assets/img/clara.png", 5, "./assets/img/clara.png")
-let cazzu = new Personaje("Cazzu", "./assets/img/cazzu.png", 5, "./assets/img/cazzu.png")
-let nodal = new Personaje("Nodal", "./assets/img/nodal.png", 5, "./assets/img/nodal.png")
-let angela = new Personaje("Angela", "./assets/img/angela.png", 5, "./assets/img/angela.png")
-
+// OBJETOS PERSONAJES JUGADOR
+/************* POLITICOS */
+let usa = new Personaje ("Trump", "./assets/img/trump.png", 5, "./assets/img/trump.png")
+let rusia = new Personaje ("Putin", "./assets/img/putin.png", 5, "./assets/img/putin.png")
+let china = new Personaje ("Jinping", "./assets/img/jinping.png", 5, "./assets/img/jinping.png")
+let norcorea = new Personaje ("Jong-un", "./assets/img/jhon_hun.png", 5, "./assets/img/jhon_hun.png")
+let venezuela = new Personaje ("Maduro", "./assets/img/maduro.png", 5, "./assets/img/maduro.png")
+let salvador = new Personaje ("Bukele", "./assets/img/bukele.png", 5, "./assets/img/bukele.png")
 // ATAQUES JUGADORES
-
-const shakiraAtaques = [{ nombre: "AGUA 💧", id: "boton_agua" },
-  { nombre: "FUEGO 🔥", id: "boton_fuego" },
-  { nombre: "AGUA 💧", id: "boton_agua" },
-  { nombre: "TIERRA 🌱", id: "boton_tierra" },
-  { nombre: "AGUA 💧", id: "boton_agua" }]
-
-const piqueAtaques = [{ nombre: "TIERRA 🌱", id: "boton_tierra" },
-  { nombre: "FUEGO 🔥", id: "boton_fuego" },
-  { nombre: "TIERRA 🌱", id: "boton_tierra" },
-  { nombre: "AGUA 💧", id: "boton_agua" },
-  { nombre: "TIERRA 🌱", id: "boton_tierra" }]
-
-const claraAtaques = [{ nombre: "FUEGO 🔥", id: "boton_fuego" },
-  { nombre: "AGUA 💧", id: "boton_agua" },
-  { nombre: "FUEGO 🔥", id: "boton_fuego" },
-  { nombre: "TIERRA 🌱", id: "boton_tierra" },
-  { nombre: "FUEGO 🔥", id: "boton_fuego" }
+const usaAtaques = [
+  { nombre: "BOMBA ☢️", id: "boton_bomba"},
+  { nombre: "VIRUS 🦠", id: "boton_virus"},
+  { nombre: "BOMBA ☢️", id: "boton_bomba"},
+  { nombre: "MISIL 🚀", id: "boton_misil"},
+  { nombre: "BOMBA ☢️", id: "boton_bomba"}
 ]
 
-const cazzuAtaques = [
-  { nombre: "FUEGO 🔥", id: "boton_fuego"},
-  { nombre: "FUEGO 🔥", id: "boton_fuego"},
-  { nombre: "FUEGO 🔥", id: "boton_fuego"},
-  { nombre: "AGUA 💧", id: "boton_agua"},
-  { nombre: "TIERRA 🌱", id: "boton_tierra"}
+const rusiaAtaques = [
+  { nombre: "MISIL 🚀", id: "boton_misil"},
+  { nombre: "BOMBA ☢️", id: "boton_bomba"},
+  { nombre: "MISIL 🚀", id: "boton_misil"},
+  { nombre: "VIRUS 🦠", id: "boton_virus"},
+  { nombre: "MISIL 🚀", id: "boton_misil"}
 ]
 
-const nodalAtaques = [
-  { nombre: "AGUA 💧", id: "boton_agua"},
-  { nombre: "TIERRA 🌱", id: "boton_tierra"},
-  { nombre: "FUEGO 🔥", id: "boton_fuego"},
-  { nombre: "TIERRA 🌱", id: "boton_tierra"},
-  { nombre: "TIERRA 🌱", id: "boton_tierra"}
+const chinaAtaques = [
+  { nombre: "VIRUS 🦠", id: "boton_virus"},
+  { nombre: "MISIL 🚀", id: "boton_misil"},
+  { nombre: "VIRUS 🦠", id: "boton_virus"},
+  { nombre: "BOMBA ☢️", id: "boton_bomba"},
+  { nombre: "VIRUS 🦠", id: "boton_virus"}
 ]
 
-  const angelaAtaques = [
-    { nombre: "FUEGO 🔥", id: "boton_fuego"},
-  { nombre: "TIERRA 🌱", id: "boton_tierra"},
-  { nombre: "AGUA 💧", id: "boton_agua"},
-  { nombre: "AGUA 💧", id: "boton_agua"},
-  { nombre: "AGUA 💧", id: "boton_agua"}
+const norcoreaAtaques = [
+  { nombre: "MISIL 🚀", id: "boton_misil"},
+  { nombre: "MISIL 🚀", id: "boton_misil"},
+  { nombre: "BOMBA ☢️", id: "boton_bomba"},
+  { nombre: "VIRUS 🦠", id: "boton_virus"},
+  { nombre: "BOMBA ☢️", id: "boton_bomba"}
 ]
 
-shakira.ataques.push(...shakiraAtaques)
-pique.ataques.push(...piqueAtaques)
-clara.ataques.push(...claraAtaques)
-cazzu.ataques.push(...cazzuAtaques)
-nodal.ataques.push(...nodalAtaques)
-angela.ataques.push(...angelaAtaques)
+const venezuelaAtaques = [
+  { nombre: "VIRUS 🦠", id: "boton_virus"},
+  { nombre: "BOMBA ☢️", id: "boton_bomba"},
+  { nombre: "MISIL 🚀", id: "boton_misil"},
+  { nombre: "MISIL 🚀", id: "boton_misil"},
+  { nombre: "VIRUS 🦠", id: "boton_virus"}
+]
+
+const salvadorAtaques = [
+  { nombre: "VIRUS 🦠", id: "boton_virus"},
+  { nombre: "BOMBA ☢️", id: "boton_bomba"},
+  { nombre: "VIRUS 🦠", id: "boton_virus"},
+  { nombre: "MISIL 🚀", id: "boton_misil"},
+  { nombre: "MISIL 🚀", id: "boton_misil"}
+]
+
+usa.ataques.push(...usaAtaques)
+rusia.ataques.push(...rusiaAtaques)
+china.ataques.push(...chinaAtaques)
+norcorea.ataques.push(...norcoreaAtaques)
+venezuela.ataques.push(...venezuelaAtaques)
+salvador.ataques.push(...salvadorAtaques)
 
 // METEMOS LOS OBJETOS MOKEPON EN EL ARRAY MOKEPONES
 personajes.push(
-  shakira,
-  pique,
-  clara,
-  cazzu,
-  nodal,
-  angela
+  usa,
+  rusia,
+  china,
+  norcorea,
+  venezuela,
+  salvador
 )
 
 //FUNCIÓN iniciarJuego  -  PARA INICIAR EL JUEGO
@@ -207,12 +211,12 @@ function iniciarJuego() {
         `
     contenedorTarjetas.innerHTML += opcionDePersonajes
 
-    inputShakira = document.getElementById("Shakira")
-    inputPique = document.getElementById("Pique")
-    inputClara = document.getElementById("Clara")
-    inputCazzu = document.getElementById("Cazzu")
-    inputNodal = document.getElementById("Nodal")
-    inputAngela = document.getElementById("Angela")
+    inputUsa = document.getElementById("Trump")
+    inputRusia = document.getElementById("Putin")
+    inputChina = document.getElementById("Jinping")
+    inputNorcorea = document.getElementById("Jong-un")
+    inputVenezuela = document.getElementById("Maduro")
+    inputSalvador = document.getElementById("Bukele")
   })
   botonPersonajeJugador.addEventListener("click", seleccionarPersonajeJugador)
   botonReiniciar.addEventListener("click", reiniciarJuego)
@@ -239,24 +243,24 @@ function unirseAlJuego() {
 function seleccionarPersonajeJugador() {
  
   //TEXTO DE LA MASCOTA QUE ELEGISTE
-  if (inputShakira.checked) {
-      spanPersonajeJugador.innerHTML = inputShakira.id
-      personajeJugador = inputShakira.id
-    } else if (inputPique.checked) {
-      spanPersonajeJugador.innerHTML = inputPique.id
-      personajeJugador = inputPique.id
-    } else if (inputClara.checked) {
-      spanPersonajeJugador.innerHTML = inputClara.id
-      personajeJugador = inputClara.id
-    } else if (inputCazzu.checked) {
-      spanPersonajeJugador.innerHTML = inputCazzu.id
-      personajeJugador = inputCazzu.id
-    } else if (inputNodal.checked) {
-      spanPersonajeJugador.innerHTML = inputNodal.id
-      personajeJugador = inputNodal.id
-    } else if (inputAngela.checked) {
-      spanPersonajeJugador.innerHTML = inputAngela.id
-      personajeJugador = inputAngela.id
+  if (inputUsa.checked) {
+      spanPersonajeJugador.innerHTML = inputUsa.id
+      personajeJugador = inputUsa.id
+    } else if (inputRusia.checked) {
+      spanPersonajeJugador.innerHTML = inputRusia.id
+      personajeJugador = inputRusia.id
+    } else if (inputChina.checked) {
+      spanPersonajeJugador.innerHTML = inputChina.id
+      personajeJugador = inputChina.id
+    } else if (inputNorcorea.checked) {
+      spanPersonajeJugador.innerHTML = inputNorcorea.id
+      personajeJugador = inputNorcorea.id
+    } else if (inputVenezuela.checked) {
+      spanPersonajeJugador.innerHTML = inputVenezuela.id
+      personajeJugador = inputVenezuela.id
+    } else if (inputSalvador.checked) {
+      spanPersonajeJugador.innerHTML = inputSalvador.id
+      personajeJugador = inputSalvador.id
     } else {
       alert("SELECCIONA UN PERSONAJE")
       return
@@ -303,9 +307,9 @@ function mostrarAtaques(ataques) {
         `
     contenedorAtaques.innerHTML += ataquesPersonaje
   })
-  // botonFuego = document.getElementById("boton_fuego")
-  // botonAgua = document.getElementById("boton_agua")
-  // botonTierra = document.getElementById("boton_tierra")
+  // botonBomba = document.getElementById("boton_bomba")
+  // botonVirus = document.getElementById("boton_virus")
+  // botonMisil = document.getElementById("boton_misil")
   botones = document.querySelectorAll(".BAtaque")
 }
 
@@ -313,18 +317,18 @@ function mostrarAtaques(ataques) {
 function secuenciaAtaque() {
   botones.forEach((boton) => {
     boton.addEventListener("click", (e) => {
-      if (e.target.textContent === "FUEGO 🔥") {
-        ataqueJugador.push("FUEGO 🔥")
+      if (e.target.textContent === "BOMBA ☢️") {
+        ataqueJugador.push("BOMBA ☢️")
         console.log(ataqueJugador)
         boton.style.background = "#112f58"
         boton.disabled = true
-      } else if (e.target.textContent === "AGUA 💧") {
-        ataqueJugador.push("AGUA 💧")
+      } else if (e.target.textContent === "VIRUS 🦠") {
+        ataqueJugador.push("VIRUS 🦠")
         console.log(ataqueJugador)
         boton.style.background = "#112f58"
         boton.disabled = true
       } else {
-        ataqueJugador.push("TIERRA 🌱")
+        ataqueJugador.push("MISIL 🚀")
         console.log(ataqueJugador)
         boton.style.background = "#112f58"
         boton.disabled = true
@@ -384,11 +388,11 @@ function ataqueAleatorioEnemigo() {
   let ataqueAleatorio = aleatorio(0, ataquesPersonajeEnemigo.length - 1)
 
   if (ataqueAleatorio == 0 || ataqueAleatorio == 1) {
-    ataqueEnemigo.push("FUEGO 🔥")
+    ataqueEnemigo.push("BOMBA ☢️")
   } else if (ataqueAleatorio == 3 || ataqueAleatorio == 4) {
-    ataqueEnemigo.push("AGUA 💧")
+    ataqueEnemigo.push("VIRUS 🦠")
   } else {
-    ataqueEnemigo.push("TIERRA 🌱")
+    ataqueEnemigo.push("MISIL 🚀")
   }
   console.log(ataqueEnemigo)
   iniciarPelea()
@@ -408,7 +412,7 @@ function indexAmbosOponentes(jugador, enemigo) {
 }
 
 function combate() {
-  //1 Fuego  FUEGO VENCE TIERRA   //2 Agua  AGUA VENCE FUEGO   //3 Tierra  TIERRA VENCE AGUA
+  //1 Bomba  BOMBA VENCE MISIL   //2 Virus  VIRUS VENCE BOMBA   //3 Misil  MISIL VENCE VIRUS
   //APARECE SECCIÓN DETALLE DE LAS BATALLAS
   seccionDetallesBatallas.style.display = "flex"  //************************* */
 
@@ -416,24 +420,24 @@ function combate() {
   for (let index = 0; index < ataqueJugador.length; index++) {
     if (ataqueJugador[index] === ataqueEnemigo[index]) {
       indexAmbosOponentes(index, index)
-      crearMensaje("EMPATE 🤜🤛")
-    } else if (ataqueJugador[index] === "FUEGO 🔥" && ataqueEnemigo[index] == "TIERRA 🌱") {
+      crearMensaje("TREGUA 🤝🕊️")
+    } else if (ataqueJugador[index] === "BOMBA ☢️" && ataqueEnemigo[index] == "MISIL 🚀") {
       indexAmbosOponentes(index, index)
-      crearMensaje("GANASTE 🏆😎")
+      crearMensaje("VENCISTE 🪖😎")
       victoriasJugador++
       spanVidasJugador.innerHTML = victoriasJugador
-    } else if (ataqueJugador[index] === "AGUA 💧" && ataqueEnemigo[index] == "FUEGO 🔥") {
+    } else if (ataqueJugador[index] === "VIRUS 🦠" && ataqueEnemigo[index] == "BOMBA ☢️") {
       indexAmbosOponentes(index, index)
-      crearMensaje("GANASTE 🏆😎")
+      crearMensaje("VENCISTE 🪖😎")
       victoriasJugador++
       spanVidasJugador.innerHTML = victoriasJugador
-    } else if (ataqueJugador[index] === "TIERRA 🌱" && ataqueEnemigo[index] == "AGUA 💧") {
+    } else if (ataqueJugador[index] === "MISIL 🚀" && ataqueEnemigo[index] == "VIRUS 🦠") {
       indexAmbosOponentes(index, index)
-      crearMensaje("GANASTE 🏆😎")
+      crearMensaje("VENCISTE 🪖😎")
       victoriasJugador++
       spanVidasJugador.innerHTML = victoriasJugador
     } else {indexAmbosOponentes(index, index)
-      crearMensaje("PERDISTE 💔😢")
+      crearMensaje("PERDISTE 🤕💔")
       victoriasEnemigo++
       spanVidasEnemigo.innerHTML = victoriasEnemigo
     }
@@ -443,11 +447,11 @@ function combate() {
 
 function revisarVictorias() {
   if (victoriasJugador === victoriasEnemigo) {
-    crearMensajeFinal("ES UN EMPATE 🤜🤛")
+    crearMensajeFinal("TREGUA 🤝🕊️")
   } else if (victoriasJugador > victoriasEnemigo) {
-    crearMensajeFinal("GANASTE 🥳🎉")
+    crearMensajeFinal("VENCISTE 🪖😎")
   } else {
-    crearMensajeFinal("PERDISTE 🥺")
+    crearMensajeFinal("PERDISTE 🤕💔")
   }
 }
 
@@ -483,7 +487,7 @@ function reiniciarJuego() {
   location.reload(true)
 }
 
-//FUNCIÓN ALEATORIO (ELIGE MASCOTA Y ATAQUE ENEMIGO)
+//FUNCIÓN ALEATORIO (ELIGE PERSONAJE Y ATAQUE ENEMIGO)
 function aleatorio(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
@@ -533,19 +537,19 @@ function enviarPosicion(x, y) {
             let personajeEnemigo = null
             const personajeNombre = enemigo.personaje.nombre || ""
             
-              if (personajeNombre === "Shakira"){
-              personajeEnemigo = new Personaje("Shakira", "./assets/img/shakira.png", 5, "./assets/img/shakira.png", enemigo.id)
-              } else if (personajeNombre === "Pique"){
-                personajeEnemigo = new Personaje("Pique", "./assets/img/pique.png", 5, "./assets/img/pique.png", enemigo.id)
-              } else if (personajeNombre === "Clara"){
-                personajeEnemigo = new Personaje("Clara", "./assets/img/clara.png", 5, "./assets/img/clara.png", enemigo.id)
-              } else if (personajeNombre === "Cazzu"){
-                personajeEnemigo = new Personaje("Cazzu", "./assets/img/cazzu.png", 5, "./assets/img/cazzu.png", enemigo.id)
-              } else if (personajeNombre === "Nodal"){
-                personajeEnemigo = new Personaje("Nodal", "./assets/img/nodal.png", 5, "./assets/img/nodal.png", enemigo.id)
+              if (personajeNombre === "Trump"){
+                personajeEnemigo = new Personaje("Trump", "./assets/img/trump.png", 5, "./assets/img/trump.png", enemigo.id)
+              } else if (personajeNombre === "Putin"){
+                personajeEnemigo = new Personaje("Putin", "./assets/img/putin.png", 5, "./assets/img/putin.png", enemigo.id)
+              } else if (personajeNombre === "Jinping"){
+                personajeEnemigo = new Personaje("Jinping", "./assets/img/jinping.png", 5, "./assets/img/jinping.png", enemigo.id)
+              } else if (personajeNombre === "Jong-un"){
+                personajeEnemigo = new Personaje("Jong-un", "./assets/img/jong_un.png", 5, "./assets/img/jong_un.png", enemigo.id)
+              } else if (personajeNombre === "Maduro"){
+                personajeEnemigo = new Personaje("Maduro", "./assets/img/maduro.png", 5, "./assets/img/maduro.png", enemigo.id)
               } else {
-                personajeEnemigo = new Personaje("Angela", "./assets/img/angela.png", 5, "./assets/img/angela.png", enemigo.id)
-            }     
+                personajeEnemigo = new Personaje("Bukele", "./assets/img/bukele.png", 5, "./assets/img/bukele.png", enemigo.id)
+              }     
             //lee las coordenadas del enemigo
             personajeEnemigo.x = enemigo.x
             personajeEnemigo.y = enemigo.y

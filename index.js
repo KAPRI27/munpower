@@ -18,7 +18,7 @@ class Jugador {
     this.id = id
   }
 
-  //asignar mpersonaje
+  //asignar personaje
   asignarPersonaje(personaje) {
     this.personaje = personaje
   }
@@ -74,14 +74,14 @@ app.post("/munpower/:jugadorId", (req, res) => {
   console.log(jugadores)
   //MOSTRAMOS EL ID
   console.log(jugadorId)
-  //MOSTRAMOS LA MASCOTA ELEGIDA
+  //MOSTRAMOS EL PERSONAJE ELEGIDO
   // console.log(personaje)
 
   //TERMINAMOS LA PETICIÓN
   res.end()
 })
 
-//ENVIAR POSICION DE MOKEPONY
+//ENVIAR POSICION DE PERSONAJE
 app.post("/munpower/:jugadorId/posicion", (req, res) => {
   const jugadorId = req.params.jugadorId || ""
   const x = req.body.x || 0

@@ -2,14 +2,14 @@
 ///** FUNCION INICIARJUEGO */
 const resultadoFinal = document.getElementById("seccion_mensaje_final")
 const botonReiniciarJuego = document.getElementById("seccion_reiniciar")
-const botonMascotaJugador = document.getElementById("boton_mascota")
+const botonPersonajeJugador = document.getElementById("boton_seleccionar")
 const botonReiniciar = document.getElementById("boton_reiniciar")
 
 ///** FUNCION SELECCIONARMASCOTAJUGADOR */
-const seccionSeleccionarMascota = document.getElementById(  "seleccionar_mascota")
+const seccionSeleccionarPersonaje = document.getElementById(  "seleccionar_personaje")
 const seccionSeleccionarAtaque = document.getElementById("seleccionar_ataque")
-let spanMascotaJugador = document.getElementById("mascota_jugador")
-let spanMascotaEnemigo = document.getElementById("mascota_enemigo")
+let spanPersonajeJugador = document.getElementById("personaje_jugador")
+let spanPersonajeEnemigo = document.getElementById("personaje_enemigo")
 
 ///** FUNCION COMBATE */
 const spanVidasJugador = document.getElementById("total_vidas_jugador")
@@ -33,7 +33,7 @@ const resultadoFinalCombate = document.getElementById("seccion_mensaje_final")
 //** RENDERIZAR LAS TARJETAS DE MOKEPONES
 const contenedorTarjetas = document.getElementById("contenedor_Tarjetas")
 const contenedorAtaques = document.getElementById("contenedor_Ataques")
-// const ataquesMokeponEnemigo = document.getElementById
+// const ataquesPersonajeEnemigo = document.getElementById
 
 //** SECCION MAPA
 const seccionVerMapa = document.getElementById("ver_mapa")
@@ -41,25 +41,24 @@ const mapa = document.getElementById("mapa")
 
 let jugadorId = null
 let enemigoId = null
-let mokepones = []
-let mokeponesEnemigos = []
-// let mokeponEnemigo = null
-// let mokepon   //esta la agregué yo por si funciona
-let opcionDeMokepones
-let inputHipodogue
-let inputCapipepo
-let inputRatigüeya
-let inputLangostarol
-let inputAguirrope
-let inputPandarol
-let ataquesMokepon
-let ataquesMokeponEnemigo
-let botonFuego
-let botonAgua
-let botonTierra
+let personajes = []
+let personajesEnemigos = []
+// let personajeEnemigo = null
+let opcionDePersonajes
+let inputShakira
+let inputPique
+let inputClara
+let inputCazzu
+let inputNodal
+let inputAngela
+let ataquesPersonaje
+let ataquesPersonajeEnemigo
+let botonBomba
+let botonVirus
+let botonMisil
 let botones = []
-let mascotaJugador
-let mascotaJugadorObjeto
+let personajeJugador
+let personajeJugadorObjeto
 let ataqueEnemigo = []
 let ataqueJugador = []
 let indexAtaqueJugador
@@ -71,7 +70,7 @@ let vidasEnemigo = 3
 let intervalo
 let lienzo = mapa.getContext("2d")
 let mapaBackground = new Image()
-mapaBackground.src = "./assets/img/mokemap.png"
+mapaBackground.src = "./assets/img/mapamundi.jpg"
 let alturaQueBuscamos
 let anchoDelMapa = window.innerWidth - 20
 const anchoMaximoDelMapa = 650
@@ -85,8 +84,8 @@ alturaQueBuscamos = (anchoDelMapa * 600) / 800
 mapa.width = anchoDelMapa
 mapa.height = alturaQueBuscamos
 
-// CLASE CONSTRUCTOR MOKEPON
-class Mokepon {
+// CLASE CONSTRUCTOR PERSONAJE
+class Personaje {
   constructor(nombre, foto, vidas, fotoMapa, id = null) {
     this.id = id
     this.nombre = nombre
@@ -103,7 +102,7 @@ class Mokepon {
     this.velocidadY = 0
   }
 
-  pintarMokepon() {
+  pintarPersonaje() {
     lienzo.drawImage(
       this.mapaFoto,
       this.x, //posicion X
@@ -115,73 +114,76 @@ class Mokepon {
 }
 
 // OBJETOS MOKEPONES JUGADOR
-let hipodogue = new Mokepon("Hipodogue", "./assets/img/hipodogue.png", 5, "./assets/img/hipodogue.png")
-let capipepo = new Mokepon("Capipepo", "./assets/img/capipepo.png", 5, "./assets/img/capipepo.png")
-let ratigüeya = new Mokepon("Ratigüeya", "./assets/img/ratigüeya.png", 5, "./assets/img/ratigüeya.png")
-let langostarol = new Mokepon("Langostarol", "./assets/img/langostarol.png", 5, "./assets/img/langostarol.png")
-let aguirrope = new Mokepon("Aguirrope", "./assets/img/aguirrope.png", 5, "./assets/img/aguirrope.png")
-let pandarol = new Mokepon("Pandarol", "./assets/img/pandarol.png", 5, "./assets/img/pandarol.png")
+let shakira = new Personaje("Shakira", "./assets/img/shakira.png", 5, "./assets/img/shakira.png")
+let pique = new Personaje("Pique", "./assets/img/pique.png", 5, "./assets/img/pique.png")
+let clara = new Personaje("Clara", "./assets/img/clara.png", 5, "./assets/img/clara.png")
+let cazzu = new Personaje("Cazzu", "./assets/img/cazzu.png", 5, "./assets/img/cazzu.png")
+let nodal = new Personaje("Nodal", "./assets/img/nodal.png", 5, "./assets/img/nodal.png")
+let angela = new Personaje("Angela", "./assets/img/angela.png", 5, "./assets/img/angela.png")
 
 // ATAQUES JUGADORES
 
-const hipodogueAtaques = [{ nombre: "AGUA 💧", id: "boton_agua" },
-  { nombre: "FUEGO 🔥", id: "boton_fuego" },
-  { nombre: "AGUA 💧", id: "boton_agua" },
-  { nombre: "TIERRA 🌱", id: "boton_tierra" },
-  { nombre: "AGUA 💧", id: "boton_agua" }]
+const shakiraAtaques = [
+  { nombre: "VIRUS 🦠", id: "boton_virus" },
+  { nombre: "BOMBA 💥", id: "boton_bomba" },
+  { nombre: "VIRUS 🦠", id: "boton_virus" },
+  { nombre: "MISIL 🚀", id: "boton_misil" },
+  { nombre: "VIRUS 🦠", id: "boton_virus" }]
 
-const capipepoAtaques = [{ nombre: "TIERRA 🌱", id: "boton_tierra" },
-  { nombre: "FUEGO 🔥", id: "boton_fuego" },
-  { nombre: "TIERRA 🌱", id: "boton_tierra" },
-  { nombre: "AGUA 💧", id: "boton_agua" },
-  { nombre: "TIERRA 🌱", id: "boton_tierra" }]
+const piqueAtaques = [
+  { nombre: "MISIL 🚀", id: "boton_misil" },
+  { nombre: "BOMBA 💥", id: "boton_bomba" },
+  { nombre: "MISIL 🚀", id: "boton_misil" },
+  { nombre: "VIRUS 🦠", id: "boton_virus" },
+  { nombre: "MISIL 🚀", id: "boton_misil" }]
 
-const ratigüeyaAtaques = [{ nombre: "FUEGO 🔥", id: "boton_fuego" },
-  { nombre: "AGUA 💧", id: "boton_agua" },
-  { nombre: "FUEGO 🔥", id: "boton_fuego" },
-  { nombre: "TIERRA 🌱", id: "boton_tierra" },
-  { nombre: "FUEGO 🔥", id: "boton_fuego" }
+const claraAtaques = [
+  { nombre: "BOMBA 💥", id: "boton_bomba" },
+  { nombre: "VIRUS 🦠", id: "boton_virus" },
+  { nombre: "BOMBA 💥", id: "boton_bomba" },
+  { nombre: "MISIL 🚀", id: "boton_misil" },
+  { nombre: "BOMBA 💥", id: "boton_bomba" }
 ]
 
-const langostarolAtaques = [
-  { nombre: "FUEGO 🔥", id: "boton_fuego"},
-  { nombre: "FUEGO 🔥", id: "boton_fuego"},
-  { nombre: "FUEGO 🔥", id: "boton_fuego"},
-  { nombre: "AGUA 💧", id: "boton_agua"},
-  { nombre: "TIERRA 🌱", id: "boton_tierra"}
+const cazzuAtaques = [
+  { nombre: "BOMBA 💥", id: "boton_bomba"},
+  { nombre: "BOMBA 💥", id: "boton_bomba"},
+  { nombre: "BOMBA 💥", id: "boton_bomba"},
+  { nombre: "VIRUS 🦠", id: "boton_virus"},
+  { nombre: "MISIL 🚀", id: "boton_misil"}
 ]
 
-const aguirropeAtaques = [
-  { nombre: "AGUA 💧", id: "boton_agua"},
-  { nombre: "TIERRA 🌱", id: "boton_tierra"},
-  { nombre: "FUEGO 🔥", id: "boton_fuego"},
-  { nombre: "TIERRA 🌱", id: "boton_tierra"},
-  { nombre: "TIERRA 🌱", id: "boton_tierra"}
+const nodalAtaques = [
+  { nombre: "VIRUS 🦠", id: "boton_virus"},
+  { nombre: "MISIL 🚀", id: "boton_misil"},
+  { nombre: "BOMBA 💥", id: "boton_bomba"},
+  { nombre: "MISIL 🚀", id: "boton_misil"},
+  { nombre: "MISIL 🚀", id: "boton_misil"}
 ]
 
-  const pandarolAtaques = [
-    { nombre: "FUEGO 🔥", id: "boton_fuego"},
-  { nombre: "TIERRA 🌱", id: "boton_tierra"},
-  { nombre: "AGUA 💧", id: "boton_agua"},
-  { nombre: "AGUA 💧", id: "boton_agua"},
-  { nombre: "AGUA 💧", id: "boton_agua"}
+  const angelaAtaques = [
+  { nombre: "BOMBA 💥", id: "boton_bomba"},
+  { nombre: "MISIL 🚀", id: "boton_misil"},
+  { nombre: "VIRUS 🦠", id: "boton_virus"},
+  { nombre: "VIRUS 🦠", id: "boton_virus"},
+  { nombre: "VIRUS 🦠", id: "boton_virus"}
 ]
 
-hipodogue.ataques.push(...hipodogueAtaques)
-capipepo.ataques.push(...capipepoAtaques)
-ratigüeya.ataques.push(...ratigüeyaAtaques)
-langostarol.ataques.push(...langostarolAtaques)
-aguirrope.ataques.push(...aguirropeAtaques)
-pandarol.ataques.push(...pandarolAtaques)
+shakira.ataques.push(...shakiraAtaques)
+pique.ataques.push(...piqueAtaques)
+clara.ataques.push(...claraAtaques)
+cazzu.ataques.push(...cazzuAtaques)
+nodal.ataques.push(...nodalAtaques)
+angela.ataques.push(...angelaAtaques)
 
 // METEMOS LOS OBJETOS MOKEPON EN EL ARRAY MOKEPONES
-mokepones.push(
-  hipodogue,
-  capipepo,
-  ratigüeya,
-  langostarol,
-  aguirrope,
-  pandarol
+personajes.push(
+  shakira,
+  pique,
+  clara,
+  cazzu,
+  nodal,
+  angela
 )
 
 //FUNCIÓN iniciarJuego  -  PARA INICIAR EL JUEGO
@@ -198,24 +200,24 @@ function iniciarJuego() {
   botonReiniciarJuego.style.display = "none"
 
   //SE CREA EL EVENTO 'CLICK' PARA SELECCIONAR MASCOTA
-  mokepones.forEach((mokepon) => {
-    opcionDeMokepones = `
-        <input type="radio" name="mascota" id="${mokepon.nombre}"/>
-        <label  class="card_mascota" for="${mokepon.nombre}">
-        <img src="${mokepon.foto}" alt="${mokepon.nombre}" >
-        <h4>${mokepon.nombre}</h4>
+  personajes.forEach((personaje) => {
+    opcionDePersonajes = `
+        <input type="radio" name="personaje" id="${personaje.nombre}"/>
+        <label  class="card_personaje" for="${personaje.nombre}">
+        <img src="${personaje.foto}" alt="${personaje.nombre}" >
+        <h4>${personaje.nombre}</h4>
         </label>
         `
-    contenedorTarjetas.innerHTML += opcionDeMokepones
+    contenedorTarjetas.innerHTML += opcionDePersonajes
 
-    inputHipodogue = document.getElementById("Hipodogue")
-    inputCapipepo = document.getElementById("Capipepo")
-    inputRatigüeya = document.getElementById("Ratigüeya")
-    inputLangostarol = document.getElementById("Langostarol")
-    inputAguirrope = document.getElementById("Aguirrope")
-    inputPandarol = document.getElementById("Pandarol")
+    inputShakira = document.getElementById("Shakira")
+    inputPique = document.getElementById("Pique")
+    inputClara = document.getElementById("Clara")
+    inputCazzu = document.getElementById("Cazzu")
+    inputNodal = document.getElementById("Nodal")
+    inputAngela = document.getElementById("Angela")
   })
-  botonMascotaJugador.addEventListener("click", seleccionarMascotaJugador)
+  botonPersonajeJugador.addEventListener("click", seleccionarPersonajeJugador)
   botonReiniciar.addEventListener("click", reiniciarJuego)
 
   //UNIR EL CODIGO AL SERVIDOR
@@ -235,62 +237,62 @@ function unirseAlJuego() {
   })
 }
 
-//FUNCION seleccionarMascotaJugador
-//AL FINALIZAR LLAMA FUNCION - FETCH seleccionarMokepon
-function seleccionarMascotaJugador() {
+//FUNCION seleccionarPersonajeJugador
+//AL FINALIZAR LLAMA FUNCION - FETCH seleccionarPersonaje
+function seleccionarPersonajeJugador() {
  
   //TEXTO DE LA MASCOTA QUE ELEGISTE
-  if (inputHipodogue.checked) {
-      spanMascotaJugador.innerHTML = inputHipodogue.id
-      mascotaJugador = inputHipodogue.id
-    } else if (inputCapipepo.checked) {
-      spanMascotaJugador.innerHTML = inputCapipepo.id
-      mascotaJugador = inputCapipepo.id
-    } else if (inputRatigüeya.checked) {
-      spanMascotaJugador.innerHTML = inputRatigüeya.id
-      mascotaJugador = inputRatigüeya.id
-    } else if (inputLangostarol.checked) {
-      spanMascotaJugador.innerHTML = inputLangostarol.id
-      mascotaJugador = inputLangostarol.id
-    } else if (inputAguirrope.checked) {
-      spanMascotaJugador.innerHTML = inputAguirrope.id
-      mascotaJugador = inputAguirrope.id
-    } else if (inputPandarol.checked) {
-      spanMascotaJugador.innerHTML = inputPandarol.id
-      mascotaJugador = inputPandarol.id
+  if (inputShakira.checked) {
+      spanPersonajeJugador.innerHTML = inputShakira.id
+      personajeJugador = inputShakira.id
+    } else if (inputPique.checked) {
+      spanPersonajeJugador.innerHTML = inputPique.id
+      personajeJugador = inputPique.id
+    } else if (inputClara.checked) {
+      spanPersonajeJugador.innerHTML = inputClara.id
+      personajeJugador = inputClara.id
+    } else if (inputCazzu.checked) {
+      spanPersonajeJugador.innerHTML = inputCazzu.id
+      personajeJugador = inputCazzu.id
+    } else if (inputNodal.checked) {
+      spanPersonajeJugador.innerHTML = inputNodal.id
+      personajeJugador = inputNodal.id
+    } else if (inputAngela.checked) {
+      spanPersonajeJugador.innerHTML = inputAngela.id
+      personajeJugador = inputAngela.id
     } else {
-      alert("SELECCIONA UNA MASCOTA")
+      alert("SELECCIONA UN PERSONAJE")
       return
   }
-   //ESCONDER SECCIÓN "MASCOTAS"  MIENTRAS NO SE ELIJA LA MASCOTA
-  seccionSeleccionarMascota.style.display = "none"
+   //ESCONDER SECCIÓN "PERSONAJES"  MIENTRAS NO SE ELIJA UNO
+  seccionSeleccionarPersonaje.style.display = "none"
   //MOSTRAR SECCION MAPA
   seccionVerMapa.style.display = "flex"
 
-  seleccionarMokepon(mascotaJugador)
-  extraerAtaques(mascotaJugador)
+  seleccionarPersonaje(personajeJugador)
+  extraerAtaques(personajeJugador)
   iniciarMapa()
 }
 
-//FUNCION FETCH seleccionarMokepon - ESTA FUNCIÓN ENVÍA EL MOKEPON SELECCIONADO AL BACKEND
-function seleccionarMokepon(mascotaJugador) {
-  fetch(`http://localhost:8080/mokepon/${jugadorId}`, {
+//FUNCION FETCH seleccionarPersonaje - ESTA FUNCIÓN ENVÍA EL PERSONAJE SELECCIONADO AL BACKEND
+function seleccionarPersonaje(personajeJugador) {
+  fetch(`http://localhost:8080/munpower/${jugadorId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      mokepon: mascotaJugador
+      personaje: personajeJugador
     })
   })
 }
 
 //FUNCION EXTRAER ATAQUES
-function extraerAtaques(mascotaJugador) {
+function extraerAtaques(personajeJugador) {
   let ataques
-  for (let i = 0; i < mokepones.length; i++) {
-    if (mascotaJugador === mokepones[i].nombre) {
-      ataques = mokepones[i].ataques
+  for (let i = 0; i < personajes.length; i++) {
+    if (personajeJugador === personajes[i].nombre) {
+      ataques = personajes[i].ataques
     }
   }
   mostrarAtaques(ataques)
@@ -299,14 +301,14 @@ function extraerAtaques(mascotaJugador) {
 //FUNCION MOSTRAR ATAQUES
 function mostrarAtaques(ataques) {
   ataques.forEach((ataque) => {
-    ataquesMokepon = `
+    ataquesPersonaje = `
           <button id="${ataque.id}" class="btn-ataque BAtaque">${ataque.nombre}</button>
         `
-    contenedorAtaques.innerHTML += ataquesMokepon
+    contenedorAtaques.innerHTML += ataquesPersonaje
   })
-  // botonFuego = document.getElementById("boton_fuego")
-  // botonAgua = document.getElementById("boton_agua")
-  // botonTierra = document.getElementById("boton_tierra")
+  // botonBomba = document.getElementById("boton_bomba")
+  // botonVirus = document.getElementById("boton_virus")
+  // botonMisil = document.getElementById("boton_misil")
   botones = document.querySelectorAll(".BAtaque")
 }
 
@@ -314,18 +316,18 @@ function mostrarAtaques(ataques) {
 function secuenciaAtaque() {
   botones.forEach((boton) => {
     boton.addEventListener("click", (e) => {
-      if (e.target.textContent === "FUEGO 🔥") {
-        ataqueJugador.push("FUEGO 🔥")
+      if (e.target.textContent === "BOMBA 💥") {
+        ataqueJugador.push("BOMBA 💥")
         console.log(ataqueJugador)
         boton.style.background = "#112f58"
         boton.disabled = true
-      } else if (e.target.textContent === "AGUA 💧") {
-        ataqueJugador.push("AGUA 💧")
+      } else if (e.target.textContent === "VIRUS 🦠") {
+        ataqueJugador.push("VIRUS 🦠")
         console.log(ataqueJugador)
         boton.style.background = "#112f58"
         boton.disabled = true
       } else {
-        ataqueJugador.push("TIERRA 🌱")
+        ataqueJugador.push("MISIL 🚀")
         console.log(ataqueJugador)
         boton.style.background = "#112f58"
         boton.disabled = true
@@ -341,7 +343,7 @@ function secuenciaAtaque() {
 
 //FUNCION PARA ENVIAR EL ATAQUE A BACKEND
 function enviarAtaques(){
-  fetch(`http://localhost:8080/mokepon/${jugadorId}/ataques`,{
+  fetch(`http://localhost:8080/munpower/${jugadorId}/ataques`,{
     method: "POST",
     headers: {
       "Content-Type" : "application/json"
@@ -354,7 +356,7 @@ function enviarAtaques(){
 }
 
 function obtenerAtaques (){
-  fetch(`http://localhost:8080/mokepon/${enemigoId}/ataques`)
+  fetch(`http://localhost:8080/munpower/${enemigoId}/ataques`)
     .then(function (res){
       if(res.ok){
         res.json()
@@ -370,9 +372,9 @@ function obtenerAtaques (){
 }
 
 //MASCOTA DEL ENEMIGO (ALEATORIO)
-function seleccionarMascotaEnemigo(enemigo) {
-  spanMascotaEnemigo.innerHTML = enemigo.nombre
-  ataquesMokeponEnemigo = enemigo.ataques
+function seleccionarPersonajeEnemigo(enemigo) {
+  spanPersonajeEnemigo.innerHTML = enemigo.nombre
+  ataquesPersonajeEnemigo = enemigo.ataques
   //LLAMANDO FUNCION SECUENCIAATAQUES
   secuenciaAtaque()
   
@@ -381,15 +383,15 @@ function seleccionarMascotaEnemigo(enemigo) {
 //ATAQUES
 //FUNCIÓN ATAQUE ALEATORIO DEL ENEMIGO
 function ataqueAleatorioEnemigo() {
-  // console.log('Ataques enemigo', ataquesMokeponEnemigo)
-  let ataqueAleatorio = aleatorio(0, ataquesMokeponEnemigo.length - 1)
+  // console.log('Ataques enemigo', ataquesPersonajeEnemigo)
+  let ataqueAleatorio = aleatorio(0, ataquesPersonajeEnemigo.length - 1)
 
   if (ataqueAleatorio == 0 || ataqueAleatorio == 1) {
-    ataqueEnemigo.push("FUEGO 🔥")
+    ataqueEnemigo.push("BOMBA 💥")
   } else if (ataqueAleatorio == 3 || ataqueAleatorio == 4) {
-    ataqueEnemigo.push("AGUA 💧")
+    ataqueEnemigo.push("VIRUS 🦠")
   } else {
-    ataqueEnemigo.push("TIERRA 🌱")
+    ataqueEnemigo.push("MISIL 🚀")
   }
   console.log(ataqueEnemigo)
   iniciarPelea()
@@ -409,7 +411,7 @@ function indexAmbosOponentes(jugador, enemigo) {
 }
 
 function combate() {
-  //1 Fuego  FUEGO VENCE TIERRA   //2 Agua  AGUA VENCE FUEGO   //3 Tierra  TIERRA VENCE AGUA
+  //1 Bomba  BOMBA VENCE MISIL   //2 Virus  VIRUS VENCE BOMBA   //3 Misil  MISIL VENCE VIRUS
   //APARECE SECCIÓN DETALLE DE LAS BATALLAS
   seccionDetallesBatallas.style.display = "flex"  //************************* */
 
@@ -418,17 +420,17 @@ function combate() {
     if (ataqueJugador[index] === ataqueEnemigo[index]) {
       indexAmbosOponentes(index, index)
       crearMensaje("EMPATE 🤜🤛")
-    } else if (ataqueJugador[index] === "FUEGO 🔥" && ataqueEnemigo[index] == "TIERRA 🌱") {
+    } else if (ataqueJugador[index] === "BOMBA 💥" && ataqueEnemigo[index] == "MISIL 🚀") {
       indexAmbosOponentes(index, index)
       crearMensaje("GANASTE 🏆😎")
       victoriasJugador++
       spanVidasJugador.innerHTML = victoriasJugador
-    } else if (ataqueJugador[index] === "AGUA 💧" && ataqueEnemigo[index] == "FUEGO 🔥") {
+    } else if (ataqueJugador[index] === "VIRUS 🦠" && ataqueEnemigo[index] == "BOMBA 💥") {
       indexAmbosOponentes(index, index)
       crearMensaje("GANASTE 🏆😎")
       victoriasJugador++
       spanVidasJugador.innerHTML = victoriasJugador
-    } else if (ataqueJugador[index] === "TIERRA 🌱" && ataqueEnemigo[index] == "AGUA 💧") {
+    } else if (ataqueJugador[index] === "MISIL 🚀" && ataqueEnemigo[index] == "VIRUS 🦠") {
       indexAmbosOponentes(index, index)
       crearMensaje("GANASTE 🏆😎")
       victoriasJugador++
@@ -491,8 +493,8 @@ function aleatorio(min, max) {
 
 //SE CREA MAPA Y SE PINTA PERSONAJE EN ESTAS COORDENADAS
 function pintarCanvas() {
-  mascotaJugadorObjeto.x = mascotaJugadorObjeto.x + mascotaJugadorObjeto.velocidadX
-  mascotaJugadorObjeto.y = mascotaJugadorObjeto.y + mascotaJugadorObjeto.velocidadY
+  personajeJugadorObjeto.x = personajeJugadorObjeto.x + personajeJugadorObjeto.velocidadX
+  personajeJugadorObjeto.y = personajeJugadorObjeto.y + personajeJugadorObjeto.velocidadY
   lienzo.clearRect(0, 0, mapa.width, mapa.height)
   lienzo.drawImage(
     mapaBackground, 
@@ -502,18 +504,18 @@ function pintarCanvas() {
     mapa.height
   )
 
-  mascotaJugadorObjeto.pintarMokepon()
-  enviarPosicion(mascotaJugadorObjeto.x, mascotaJugadorObjeto.y)
+  personajeJugadorObjeto.pintarPersonaje()
+  enviarPosicion(personajeJugadorObjeto.x, personajeJugadorObjeto.y)
 
-  mokeponesEnemigos.forEach(function (mokepon){
-    mokepon.pintarMokepon()
-    revisarColision(mokepon)
+  personajesEnemigos.forEach(function (personaje){
+    personaje.pintarPersonaje()
+    revisarColision(personaje)
   })
 }
 
 //ENVIAR POSICION JUGADOR agregamos una funcion que permite leer las coordenadas del jugador
 function enviarPosicion(x, y) {
-  fetch(`http://localhost:8080/mokepon/${jugadorId}/posicion`, {
+  fetch(`http://localhost:8080/munpower/${jugadorId}/posicion`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -530,28 +532,28 @@ function enviarPosicion(x, y) {
       //devuelve un objeto json a Back con los enemigos
       .then(function ({enemigos}){
         console.log(enemigos)  
-        mokeponesEnemigos = enemigos.map(function (enemigo) {
-            let mokeponEnemigo = null
-            const mokeponNombre = enemigo.mokepon.nombre || ""
+        personajesEnemigos = enemigos.map(function (enemigo) {
+            let personajeEnemigo = null
+            const personajeNombre = enemigo.personaje.nombre || ""
             
-              if (mokeponNombre === "Hipodogue"){
-              mokeponEnemigo = new Mokepon("Hipodogue", "./assets/img/hipodogue.png", 5, "./assets/img/hipodogue.png", enemigo.id)
-              } else if (mokeponNombre === "Capipepo"){
-                mokeponEnemigo = new Mokepon("Capipepo", "./assets/img/capipepo.png", 5, "./assets/img/capipepo.png", enemigo.id)
-              } else if (mokeponNombre === "Ratigüeya"){
-                mokeponEnemigo = new Mokepon("Ratigüeya", "./assets/img/ratigüeya.png", 5, "./assets/img/ratigüeya.png", enemigo.id)
-              } else if (mokeponNombre === "Langostarol"){
-                mokeponEnemigo = new Mokepon("Langostarol", "./assets/img/langostarol.png", 5, "./assets/img/langostarol.png", enemigo.id)
-              } else if (mokeponNombre === "Aguirrope"){
-                mokeponEnemigo = new Mokepon("Aguirrope", "./assets/img/aguirrope.png", 5, "./assets/img/aguirrope.png", enemigo.id)
+              if (personajeNombre === "Shakira"){
+              personajeEnemigo = new Personaje("Shakira", "./assets/img/shakira.png", 5, "./assets/img/shakira.png", enemigo.id)
+              } else if (personajeNombre === "Pique"){
+                personajeEnemigo = new Personaje("Pique", "./assets/img/pique.png", 5, "./assets/img/pique.png", enemigo.id)
+              } else if (personajeNombre === "Clara"){
+                personajeEnemigo = new Personaje("Clara", "./assets/img/clara.png", 5, "./assets/img/clara.png", enemigo.id)
+              } else if (personajeNombre === "Cazzu"){
+                personajeEnemigo = new Personaje("Cazzu", "./assets/img/cazzu.png", 5, "./assets/img/cazzu.png", enemigo.id)
+              } else if (personajeNombre === "Nodal"){
+                personajeEnemigo = new Personaje("Nodal", "./assets/img/nodal.png", 5, "./assets/img/nodal.png", enemigo.id)
               } else {
-                mokeponEnemigo = new Mokepon("Pandarol", "./assets/img/pandarol.png", 5, "./assets/img/pandarol.png", enemigo.id)
+                personajeEnemigo = new Personaje("Angela", "./assets/img/angela.png", 5, "./assets/img/angela.png", enemigo.id)
             }     
             //lee las coordenadas del enemigo
-            mokeponEnemigo.x = enemigo.x
-            mokeponEnemigo.y = enemigo.y
+            personajeEnemigo.x = enemigo.x
+            personajeEnemigo.y = enemigo.y
 
-            return mokeponEnemigo
+            return personajeEnemigo
         })    
       })  
     }          
@@ -559,29 +561,29 @@ function enviarPosicion(x, y) {
 }
 
 function moverDerecha() {
-  // const mascotaJugadorObjeto = obtenerObjetoMascota()
-  mascotaJugadorObjeto.velocidadX = 5
+  // const personajeJugadorObjeto = obtenerObjetoPersonaje()
+  personajeJugadorObjeto.velocidadX = 5
 }
 
 function moverIzquierda() {
-  // const mascotaJugadorObjeto = obtenerObjetoMascota()
-  mascotaJugadorObjeto.velocidadX = -5
+  // const personajeJugadorObjeto = obtenerObjetoPersonaje()
+  personajeJugadorObjeto.velocidadX = -5
 }
 
 function moverArriba() {
-  // const mascotaJugadorObjeto = obtenerObjetoMascota()
-  mascotaJugadorObjeto.velocidadY = -5
+  // const personajeJugadorObjeto = obtenerObjetoPersonaje()
+  personajeJugadorObjeto.velocidadY = -5
 }
 
 function moverAbajo() {
-  // const mascotaJugadorObjeto = obtenerObjetoMascota()
-  mascotaJugadorObjeto.velocidadY = 5
+  // const personajeJugadorObjeto = obtenerObjetoPersonaje()
+  personajeJugadorObjeto.velocidadY = 5
 }
 
 function detenerMovimiento() {
-  // const mascotaJugadorObjeto = obtenerObjetoMascota()
-  mascotaJugadorObjeto.velocidadX = 0
-  mascotaJugadorObjeto.velocidadY = 0
+  // const personajeJugadorObjeto = obtenerObjetoPersonaje()
+  personajeJugadorObjeto.velocidadX = 0
+  personajeJugadorObjeto.velocidadY = 0
 }
 
 function presionarTecla(event) {
@@ -604,16 +606,16 @@ function presionarTecla(event) {
 }
 
 function iniciarMapa() {
-  mascotaJugadorObjeto = obtenerObjetoMascota(mascotaJugador)
+  personajeJugadorObjeto = obtenerObjetoPersonaje(personajeJugador)
   intervalo = setInterval(pintarCanvas, 50)
   window.addEventListener("keydown", presionarTecla)
   window.addEventListener("keyup", detenerMovimiento)
 }
 
-function obtenerObjetoMascota() {
-  for (let i = 0; i < mokepones.length; i++) {
-    if (mascotaJugador === mokepones[i].nombre) {
-      return mokepones[i]
+function obtenerObjetoPersonaje() {
+  for (let i = 0; i < personajes.length; i++) {
+    if (personajeJugador === personajes[i].nombre) {
+      return personajes[i]
     }
   }
 }
@@ -624,16 +626,16 @@ function revisarColision(enemigo) {
   const derechaEnemigo = enemigo.x + enemigo.ancho
   const izquierdaEnemigo = enemigo.x
 
-  const arribaMascota = mascotaJugadorObjeto.y
-  const abajoMascota = mascotaJugadorObjeto.y + mascotaJugadorObjeto.alto
-  const derechaMascota = mascotaJugadorObjeto.x + mascotaJugadorObjeto.ancho
-  const izquierdaMascota = mascotaJugadorObjeto.x
+  const arribaPersonaje = personajeJugadorObjeto.y
+  const abajoPersonaje = personajeJugadorObjeto.y + personajeJugadorObjeto.alto
+  const derechaPersonaje = personajeJugadorObjeto.x + personajeJugadorObjeto.ancho
+  const izquierdaPersonaje = personajeJugadorObjeto.x
 
   if (
-    abajoMascota < arribaEnemigo ||
-    arribaMascota > abajoEnemigo ||
-    derechaMascota < izquierdaEnemigo ||
-    izquierdaMascota > derechaEnemigo
+    abajoPersonaje < arribaEnemigo ||
+    arribaPersonaje > abajoEnemigo ||
+    derechaPersonaje < izquierdaEnemigo ||
+    izquierdaPersonaje > derechaEnemigo
   ) {
     return
   }
@@ -642,7 +644,7 @@ function revisarColision(enemigo) {
 
   enemigoId = enemigo.id
   seccionSeleccionarAtaque.style.display = "flex"
-  seleccionarMascotaEnemigo(enemigo)
+  seleccionarPersonajeEnemigo(enemigo)
   seccionVerMapa.style.display = "none"
 }
 

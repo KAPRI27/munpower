@@ -154,23 +154,23 @@ svg{
     margin: 30px;
 }
 
-#boton_fuego:hover {
+#boton_bomba:hover {
     background-color: rgb(250, 175, 13);
     color:#df2007;
 }
 
-#boton_agua:hover {
+#boton_virus:hover {
     background-color: rgb(118, 182, 235);
     color:#1741b4;
 }
 
-#boton_tierra:hover {
+#boton_misil:hover {
     background-color: rgb(75, 167, 52);
     color:#6b3a14;
 }
 
 
- #seccion_mensajes{
+#seccion_mensajes{
     color: #94076a;
     background-color: #9699f1;
     padding:20px;
