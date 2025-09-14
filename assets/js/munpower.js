@@ -2,14 +2,14 @@
 ///** FUNCION INICIARJUEGO */
 const resultadoFinal = document.getElementById("seccion_mensaje_final")
 const botonReiniciarJuego = document.getElementById("seccion_reiniciar")
-const botonMascotaJugador = document.getElementById("boton_mascota")
+const botonPersonajeJugador = document.getElementById("boton_seleccionar")
 const botonReiniciar = document.getElementById("boton_reiniciar")
 
 ///** FUNCION SELECCIONARMASCOTAJUGADOR */
-const seccionSeleccionarMascota = document.getElementById(  "seleccionar_mascota")
+const seccionSeleccionarPersonaje = document.getElementById(  "seleccionar_personaje")
 const seccionSeleccionarAtaque = document.getElementById("seleccionar_ataque")
-let spanMascotaJugador = document.getElementById("mascota_jugador")
-let spanMascotaEnemigo = document.getElementById("mascota_enemigo")
+let spanPersonajeJugador = document.getElementById("personaje_jugador")
+let spanPersonajeEnemigo = document.getElementById("personaje_enemigo")
 
 ///** FUNCION COMBATE */
 const spanVidasJugador = document.getElementById("total_vidas_jugador")
@@ -33,7 +33,7 @@ const resultadoFinalCombate = document.getElementById("seccion_mensaje_final")
 //** RENDERIZAR LAS TARJETAS DE MOKEPONES
 const contenedorTarjetas = document.getElementById("contenedor_Tarjetas")
 const contenedorAtaques = document.getElementById("contenedor_Ataques")
-// const ataquesMokeponEnemigo = document.getElementById
+// const ataquesPersonajeEnemigo = document.getElementById
 
 //** SECCION MAPA
 const seccionVerMapa = document.getElementById("ver_mapa")
@@ -44,21 +44,21 @@ let enemigoId = null
 let personajes = []
 let personajesEnemigos = []
 // let personajeEnemigo = null
-let opcionDeMokepones
+let opcionDePersonajes
 let inputShakira
 let inputPique
 let inputClara
 let inputCazzu
 let inputNodal
 let inputAngela
-let ataquesMokepon
-let ataquesMokeponEnemigo
+let ataquesPersonaje
+let ataquesPersonajeEnemigo
 let botonFuego
 let botonAgua
 let botonTierra
 let botones = []
-let mascotaJugador
-let mascotaJugadorObjeto
+let personajeJugador
+let personajeJugadorObjeto
 let ataqueEnemigo = []
 let ataqueJugador = []
 let indexAtaqueJugador
@@ -84,7 +84,7 @@ alturaQueBuscamos = (anchoDelMapa * 600) / 800
 mapa.width = anchoDelMapa
 mapa.height = alturaQueBuscamos
 
-// CLASE CONSTRUCTOR MOKEPON
+// CLASE CONSTRUCTOR PERSONAJE
 class Personaje {
   constructor(nombre, foto, vidas, fotoMapa, id = null) {
     this.id = id
@@ -198,14 +198,14 @@ function iniciarJuego() {
 
   //SE CREA EL EVENTO 'CLICK' PARA SELECCIONAR MASCOTA
   personajes.forEach((personaje) => {
-    opcionDeMokepones = `
-        <input type="radio" name="mascota" id="${personaje.nombre}"/>
-        <label  class="card_mascota" for="${personaje.nombre}">
+    opcionDePersonajes = `
+        <input type="radio" name="personaje" id="${personaje.nombre}"/>
+        <label  class="card_personaje" for="${personaje.nombre}">
         <img src="${personaje.foto}" alt="${personaje.nombre}" >
         <h4>${personaje.nombre}</h4>
         </label>
         `
-    contenedorTarjetas.innerHTML += opcionDeMokepones
+    contenedorTarjetas.innerHTML += opcionDePersonajes
 
     inputShakira = document.getElementById("Shakira")
     inputPique = document.getElementById("Pique")
@@ -214,7 +214,7 @@ function iniciarJuego() {
     inputNodal = document.getElementById("Nodal")
     inputAngela = document.getElementById("Angela")
   })
-  botonMascotaJugador.addEventListener("click", seleccionarMascotaJugador)
+  botonPersonajeJugador.addEventListener("click", seleccionarPersonajeJugador)
   botonReiniciar.addEventListener("click", reiniciarJuego)
 
   //UNIR EL CODIGO AL SERVIDOR
@@ -234,61 +234,61 @@ function unirseAlJuego() {
   })
 }
 
-//FUNCION seleccionarMascotaJugador
-//AL FINALIZAR LLAMA FUNCION - FETCH seleccionarMokepon
-function seleccionarMascotaJugador() {
+//FUNCION seleccionarPersonajeJugador
+//AL FINALIZAR LLAMA FUNCION - FETCH seleccionarPersonaje
+function seleccionarPersonajeJugador() {
  
   //TEXTO DE LA MASCOTA QUE ELEGISTE
   if (inputShakira.checked) {
-      spanMascotaJugador.innerHTML = inputShakira.id
-      mascotaJugador = inputShakira.id
+      spanPersonajeJugador.innerHTML = inputShakira.id
+      personajeJugador = inputShakira.id
     } else if (inputPique.checked) {
-      spanMascotaJugador.innerHTML = inputPique.id
-      mascotaJugador = inputPique.id
+      spanPersonajeJugador.innerHTML = inputPique.id
+      personajeJugador = inputPique.id
     } else if (inputClara.checked) {
-      spanMascotaJugador.innerHTML = inputClara.id
-      mascotaJugador = inputClara.id
+      spanPersonajeJugador.innerHTML = inputClara.id
+      personajeJugador = inputClara.id
     } else if (inputCazzu.checked) {
-      spanMascotaJugador.innerHTML = inputCazzu.id
-      mascotaJugador = inputCazzu.id
+      spanPersonajeJugador.innerHTML = inputCazzu.id
+      personajeJugador = inputCazzu.id
     } else if (inputNodal.checked) {
-      spanMascotaJugador.innerHTML = inputNodal.id
-      mascotaJugador = inputNodal.id
+      spanPersonajeJugador.innerHTML = inputNodal.id
+      personajeJugador = inputNodal.id
     } else if (inputAngela.checked) {
-      spanMascotaJugador.innerHTML = inputAngela.id
-      mascotaJugador = inputAngela.id
+      spanPersonajeJugador.innerHTML = inputAngela.id
+      personajeJugador = inputAngela.id
     } else {
-      alert("SELECCIONA UNA MASCOTA")
+      alert("SELECCIONA UN PERSONAJE")
       return
   }
-   //ESCONDER SECCIÓN "MASCOTAS"  MIENTRAS NO SE ELIJA LA MASCOTA
-  seccionSeleccionarMascota.style.display = "none"
+   //ESCONDER SECCIÓN "PERSONAJES"  MIENTRAS NO SE ELIJA UNO
+  seccionSeleccionarPersonaje.style.display = "none"
   //MOSTRAR SECCION MAPA
   seccionVerMapa.style.display = "flex"
 
-  seleccionarPersonaje(mascotaJugador)
-  extraerAtaques(mascotaJugador)
+  seleccionarPersonaje(personajeJugador)
+  extraerAtaques(personajeJugador)
   iniciarMapa()
 }
 
-//FUNCION FETCH seleccionarMokepon - ESTA FUNCIÓN ENVÍA EL MOKEPON SELECCIONADO AL BACKEND
-function seleccionarPersonaje(mascotaJugador) {
+//FUNCION FETCH seleccionarPersonaje - ESTA FUNCIÓN ENVÍA EL PERSONAJE SELECCIONADO AL BACKEND
+function seleccionarPersonaje(personajeJugador) {
   fetch(`http://localhost:8080/munpower/${jugadorId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      personaje: mascotaJugador
+      personaje: personajeJugador
     })
   })
 }
 
 //FUNCION EXTRAER ATAQUES
-function extraerAtaques(mascotaJugador) {
+function extraerAtaques(personajeJugador) {
   let ataques
   for (let i = 0; i < personajes.length; i++) {
-    if (mascotaJugador === personajes[i].nombre) {
+    if (personajeJugador === personajes[i].nombre) {
       ataques = personajes[i].ataques
     }
   }
@@ -298,10 +298,10 @@ function extraerAtaques(mascotaJugador) {
 //FUNCION MOSTRAR ATAQUES
 function mostrarAtaques(ataques) {
   ataques.forEach((ataque) => {
-    ataquesMokepon = `
+    ataquesPersonaje = `
           <button id="${ataque.id}" class="btn-ataque BAtaque">${ataque.nombre}</button>
         `
-    contenedorAtaques.innerHTML += ataquesMokepon
+    contenedorAtaques.innerHTML += ataquesPersonaje
   })
   // botonFuego = document.getElementById("boton_fuego")
   // botonAgua = document.getElementById("boton_agua")
@@ -369,9 +369,9 @@ function obtenerAtaques (){
 }
 
 //MASCOTA DEL ENEMIGO (ALEATORIO)
-function seleccionarMascotaEnemigo(enemigo) {
-  spanMascotaEnemigo.innerHTML = enemigo.nombre
-  ataquesMokeponEnemigo = enemigo.ataques
+function seleccionarPersonajeEnemigo(enemigo) {
+  spanPersonajeEnemigo.innerHTML = enemigo.nombre
+  ataquesPersonajeEnemigo = enemigo.ataques
   //LLAMANDO FUNCION SECUENCIAATAQUES
   secuenciaAtaque()
   
@@ -380,8 +380,8 @@ function seleccionarMascotaEnemigo(enemigo) {
 //ATAQUES
 //FUNCIÓN ATAQUE ALEATORIO DEL ENEMIGO
 function ataqueAleatorioEnemigo() {
-  // console.log('Ataques enemigo', ataquesMokeponEnemigo)
-  let ataqueAleatorio = aleatorio(0, ataquesMokeponEnemigo.length - 1)
+  // console.log('Ataques enemigo', ataquesPersonajeEnemigo)
+  let ataqueAleatorio = aleatorio(0, ataquesPersonajeEnemigo.length - 1)
 
   if (ataqueAleatorio == 0 || ataqueAleatorio == 1) {
     ataqueEnemigo.push("FUEGO 🔥")
@@ -490,8 +490,8 @@ function aleatorio(min, max) {
 
 //SE CREA MAPA Y SE PINTA PERSONAJE EN ESTAS COORDENADAS
 function pintarCanvas() {
-  mascotaJugadorObjeto.x = mascotaJugadorObjeto.x + mascotaJugadorObjeto.velocidadX
-  mascotaJugadorObjeto.y = mascotaJugadorObjeto.y + mascotaJugadorObjeto.velocidadY
+  personajeJugadorObjeto.x = personajeJugadorObjeto.x + personajeJugadorObjeto.velocidadX
+  personajeJugadorObjeto.y = personajeJugadorObjeto.y + personajeJugadorObjeto.velocidadY
   lienzo.clearRect(0, 0, mapa.width, mapa.height)
   lienzo.drawImage(
     mapaBackground, 
@@ -501,11 +501,11 @@ function pintarCanvas() {
     mapa.height
   )
 
-  mascotaJugadorObjeto.pintarMokepon()
-  enviarPosicion(mascotaJugadorObjeto.x, mascotaJugadorObjeto.y)
+  personajeJugadorObjeto.pintarPersonaje()
+  enviarPosicion(personajeJugadorObjeto.x, personajeJugadorObjeto.y)
 
   personajesEnemigos.forEach(function (personaje){
-    personaje.pintarMokepon()
+    personaje.pintarPersonaje()
     revisarColision(personaje)
   })
 }
@@ -533,18 +533,18 @@ function enviarPosicion(x, y) {
             let personajeEnemigo = null
             const personajeNombre = enemigo.personaje.nombre || ""
             
-              if (personajeNombre === "shakira"){
-              personajeEnemigo = new Mokepon("Shakira", "./assets/img/shakira.png", 5, "./assets/img/shakira.png", enemigo.id)
+              if (personajeNombre === "Shakira"){
+              personajeEnemigo = new Personaje("Shakira", "./assets/img/shakira.png", 5, "./assets/img/shakira.png", enemigo.id)
               } else if (personajeNombre === "Pique"){
-                personajeEnemigo = new Mokepon("Pique", "./assets/img/pique.png", 5, "./assets/img/pique.png", enemigo.id)
+                personajeEnemigo = new Personaje("Pique", "./assets/img/pique.png", 5, "./assets/img/pique.png", enemigo.id)
               } else if (personajeNombre === "Clara"){
-                personajeEnemigo = new Mokepon("Clara", "./assets/img/clara.png", 5, "./assets/img/clara.png", enemigo.id)
+                personajeEnemigo = new Personaje("Clara", "./assets/img/clara.png", 5, "./assets/img/clara.png", enemigo.id)
               } else if (personajeNombre === "Cazzu"){
-                personajeEnemigo = new Mokepon("Cazzu", "./assets/img/cazzu.png", 5, "./assets/img/cazzu.png", enemigo.id)
+                personajeEnemigo = new Personaje("Cazzu", "./assets/img/cazzu.png", 5, "./assets/img/cazzu.png", enemigo.id)
               } else if (personajeNombre === "Nodal"){
-                personajeEnemigo = new Mokepon("Nodal", "./assets/img/nodal.png", 5, "./assets/img/nodal.png", enemigo.id)
+                personajeEnemigo = new Personaje("Nodal", "./assets/img/nodal.png", 5, "./assets/img/nodal.png", enemigo.id)
               } else {
-                personajeEnemigo = new Mokepon("Angela", "./assets/img/angela.png", 5, "./assets/img/angela.png", enemigo.id)
+                personajeEnemigo = new Personaje("Angela", "./assets/img/angela.png", 5, "./assets/img/angela.png", enemigo.id)
             }     
             //lee las coordenadas del enemigo
             personajeEnemigo.x = enemigo.x
@@ -558,29 +558,29 @@ function enviarPosicion(x, y) {
 }
 
 function moverDerecha() {
-  // const mascotaJugadorObjeto = obtenerObjetoMascota()
-  mascotaJugadorObjeto.velocidadX = 5
+  // const personajeJugadorObjeto = obtenerObjetoPersonaje()
+  personajeJugadorObjeto.velocidadX = 5
 }
 
 function moverIzquierda() {
-  // const mascotaJugadorObjeto = obtenerObjetoMascota()
-  mascotaJugadorObjeto.velocidadX = -5
+  // const personajeJugadorObjeto = obtenerObjetoPersonaje()
+  personajeJugadorObjeto.velocidadX = -5
 }
 
 function moverArriba() {
-  // const mascotaJugadorObjeto = obtenerObjetoMascota()
-  mascotaJugadorObjeto.velocidadY = -5
+  // const personajeJugadorObjeto = obtenerObjetoPersonaje()
+  personajeJugadorObjeto.velocidadY = -5
 }
 
 function moverAbajo() {
-  // const mascotaJugadorObjeto = obtenerObjetoMascota()
-  mascotaJugadorObjeto.velocidadY = 5
+  // const personajeJugadorObjeto = obtenerObjetoPersonaje()
+  personajeJugadorObjeto.velocidadY = 5
 }
 
 function detenerMovimiento() {
-  // const mascotaJugadorObjeto = obtenerObjetoMascota()
-  mascotaJugadorObjeto.velocidadX = 0
-  mascotaJugadorObjeto.velocidadY = 0
+  // const personajeJugadorObjeto = obtenerObjetoPersonaje()
+  personajeJugadorObjeto.velocidadX = 0
+  personajeJugadorObjeto.velocidadY = 0
 }
 
 function presionarTecla(event) {
@@ -603,15 +603,15 @@ function presionarTecla(event) {
 }
 
 function iniciarMapa() {
-  mascotaJugadorObjeto = obtenerObjetoMascota(mascotaJugador)
+  personajeJugadorObjeto = obtenerObjetoPersonaje(personajeJugador)
   intervalo = setInterval(pintarCanvas, 50)
   window.addEventListener("keydown", presionarTecla)
   window.addEventListener("keyup", detenerMovimiento)
 }
 
-function obtenerObjetoMascota() {
+function obtenerObjetoPersonaje() {
   for (let i = 0; i < personajes.length; i++) {
-    if (mascotaJugador === personajes[i].nombre) {
+    if (personajeJugador === personajes[i].nombre) {
       return personajes[i]
     }
   }
@@ -623,16 +623,16 @@ function revisarColision(enemigo) {
   const derechaEnemigo = enemigo.x + enemigo.ancho
   const izquierdaEnemigo = enemigo.x
 
-  const arribaMascota = mascotaJugadorObjeto.y
-  const abajoMascota = mascotaJugadorObjeto.y + mascotaJugadorObjeto.alto
-  const derechaMascota = mascotaJugadorObjeto.x + mascotaJugadorObjeto.ancho
-  const izquierdaMascota = mascotaJugadorObjeto.x
+  const arribaPersonaje = personajeJugadorObjeto.y
+  const abajoPersonaje = personajeJugadorObjeto.y + personajeJugadorObjeto.alto
+  const derechaPersonaje = personajeJugadorObjeto.x + personajeJugadorObjeto.ancho
+  const izquierdaPersonaje = personajeJugadorObjeto.x
 
   if (
-    abajoMascota < arribaEnemigo ||
-    arribaMascota > abajoEnemigo ||
-    derechaMascota < izquierdaEnemigo ||
-    izquierdaMascota > derechaEnemigo
+    abajoPersonaje < arribaEnemigo ||
+    arribaPersonaje > abajoEnemigo ||
+    derechaPersonaje < izquierdaEnemigo ||
+    izquierdaPersonaje > derechaEnemigo
   ) {
     return
   }
@@ -641,7 +641,7 @@ function revisarColision(enemigo) {
 
   enemigoId = enemigo.id
   seccionSeleccionarAtaque.style.display = "flex"
-  seleccionarMascotaEnemigo(enemigo)
+  seleccionarPersonajeEnemigo(enemigo)
   seccionVerMapa.style.display = "none"
 }
 
