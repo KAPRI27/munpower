@@ -142,3 +142,8 @@ dist
 .svelte-kit
 
 # End of https://www.toptal.com/developers/gitignore/api/node
+
+### Archivos extra 
+index_otro.js
+todo_ok.js
+POWEMUNDI_otro.html
